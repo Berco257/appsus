@@ -5,10 +5,9 @@ export const noteService = {
     query,
     saveNote
 }
-
 const KEY = 'notesDB';
-
-var gNotes = [{
+var gNotes;
+const gData = [{
         id: utilService.makeId(),
         type: "note-txt",
         header: "What I am doing",
@@ -48,7 +47,7 @@ var gNotes = [{
     }
 ];
 
-_saveNotesToStorage(KEY, gNotes)
+_createNotes();
 
 function query() {
     return gNotes;
@@ -95,5 +94,14 @@ function getInfo(note, type) {
             label: 'bla',
             todos: ['bla']
         }
+    }
+}
+
+function _createNotes() {
+    gNotes = storageService.loadFromStorage(KEY)
+    if (!gNotes || !gNotes.length) {
+        console.log(gNotes);
+        gNotes = gData;
+        _saveNotesToStorage();
     }
 }
