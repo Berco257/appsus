@@ -1,3 +1,4 @@
+import { NoteDyanmic } from '../cmps/note-dynamic.jsx'
 import { TodoLine } from '../cmps/todo-line.jsx'
 export class NotePreview extends React.Component {
     state = {
@@ -6,14 +7,22 @@ export class NotePreview extends React.Component {
     componentDidMount() {
     }
 
+    onChangeInputType = ({ target }) => {
+        this.setState({ inputType: target.value })
+      }
+
+    onChangeStyle = (field, value) => {
+        console.log('field', field)
+        this.setState(prevState => ({ footerStyle: { ...prevState.footerStyle, [field]: value } }))
+    }
+
     render() {
         const { note } = this.props
         const { type } = note
         if (type === 'note-txt') {
             return (
                 <article className="note-preview">
-                    <h3>{note.header}</h3>
-                    <h4>{note.info.txt}</h4>
+                    <NoteDyanmic note={note}/>
                 </article>
             )
         } else if (type === 'note-img') {
@@ -33,13 +42,13 @@ export class NotePreview extends React.Component {
                 </article>
             )
         } else if (type === 'note-video') {
-            return(
-            <article className="note-preview">
-                <h3>{note.header}</h3>
-                <h4>{note.info.title}</h4>
-                <iframe width="250" height="187" src={note.info.url}>
-                </iframe>
-            </article>
+            return (
+                <article className="note-preview">
+                    <h3>{note.header}</h3>
+                    <h4>{note.info.title}</h4>
+                    <iframe width="250" height="187" src={note.info.url}>
+                    </iframe>
+                </article>
             )
         }
     }
