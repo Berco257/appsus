@@ -1,1 +1,4 @@
 @import './pages/mail-app.css';
+/* @import './pages/mail-details.css'; */
+@import './cmps/mail-list.css';
+@import './cmps/mail-preview.css';
