@@ -1,4 +1,32 @@
-.user-msg{
-    color: whitesmoke;
-    background-color: black;
+.user-msg {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    padding: 5px;
+    right: 10px;
+    top: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 350px;
+}
+
+.user-msg button {
+    cursor: pointer;
+    border: 0;
+    background-color: unset;
+    color: #cc2020;
+    font-weight: bold;
+}
+
+.user-msg span {
+    font-weight: bold;
+    color: #611010;
+}
+
+.user-msg.danger {
+    background-color: rgb(244 234 234);
+}
+
+.user-msg.success {
+    background-color: rgb(234 244 234);
 }

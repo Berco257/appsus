@@ -1,4 +1,3 @@
-
 function on(eventName, listener) {
     const callListener = ({ detail }) => {
         listener(detail)
@@ -16,7 +15,3 @@ function emit(eventName, data) {
 export const eventBusService =  { on, emit }
 
 window.myBus = eventBusService
-
-
-
-
