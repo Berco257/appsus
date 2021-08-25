@@ -3,7 +3,8 @@ import { storageService } from '../../../services/storage.service.js'
 
 export const noteService = {
     query,
-    saveNote
+    saveNote,
+    deleteNote
 }
 const KEY = 'notesDB';
 var gNotes;
@@ -104,4 +105,13 @@ function _createNotes() {
         gNotes = gData;
         _saveNotesToStorage();
     }
+}
+
+function deleteNote(noteId) {
+    var noteIdx = gNotes.findIndex(function(note) {
+        return noteId === note.id
+    })
+    gNotes.splice(noteIdx, 1)
+    _saveNotesToStorage();
+    return Promise.resolve()
 }

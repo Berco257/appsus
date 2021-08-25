@@ -12,7 +12,7 @@ export class NoteList extends React.Component {
     return (
       <div className="note-list">
         <h1>notes</h1>
-        {this.props.notes.map(note => <NotePreview key={note.id} note={note}/>)}
+        {this.props.notes.map(note => <NotePreview key={note.id} note={note} loadNotes = {this.props.loadNotes}/>)}
       </div>
     )
   }
