@@ -35,10 +35,8 @@ export class NoteDyanmic extends React.Component {
             <section style={footerStyle} className="note-dynamic">
                 <h3>{note.header}</h3>
                 <h4>{note.info.txt}</h4>
-                <DynamicCmp onChangeStyle={this.onChangeStyle} type={inputType} name="Popo" />
-                <select value={inputType} onChange={this.onChangeInputType} >
-                    <option value="color">Color</option>
-                </select>
+                <DynamicCmp onChangeStyle={this.onChangeStyle} type={inputType}/>
+                
             </section>
         )
     }
