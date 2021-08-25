@@ -1,4 +1,4 @@
-import {TodoLine} from '../cmps/todo-line.jsx'
+import { TodoLine } from '../cmps/todo-line.jsx'
 export class NotePreview extends React.Component {
     state = {
         infoType: null,
@@ -12,22 +12,34 @@ export class NotePreview extends React.Component {
         if (type === 'note-txt') {
             return (
                 <article className="note-preview">
+                    <h3>{note.header}</h3>
                     <h4>{note.info.txt}</h4>
                 </article>
             )
         } else if (type === 'note-img') {
             return (
                 <article className="note-preview">
-                    <h4>Title: {note.info.title}</h4>
+                    <h3>{note.header}</h3>
+                    <h4>{note.info.title}</h4>
                     <img src={note.info.url} alt="" />
                 </article>
             )
-        } else if (type === 'note-todos'){
+        } else if (type === 'note-todos') {
             return (
                 <article className="note-todos">
+                    <h3>{note.header}</h3>
                     <h4>Label: {note.info.label}</h4>
-                    {note.info.todos.map((todo, idx) => <TodoLine key={idx} todo={todo}/>)}
+                    {note.info.todos.map((todo, idx) => <TodoLine key={idx} todo={todo} />)}
                 </article>
+            )
+        } else if (type === 'note-video') {
+            return(
+            <article className="note-preview">
+                <h3>{note.header}</h3>
+                <h4>{note.info.title}</h4>
+                <iframe width="250" height="187" src={note.info.url}>
+                </iframe>
+            </article>
             )
         }
     }
