@@ -1,9 +1,12 @@
 import { utilService } from '../../../services/util.service.js'
-
+import { storageService } from '../../../services/storage.service.js'
 
 export const noteService = {
     query,
+    saveNote
 }
+
+const KEY = 'notesDB';
 
 var gNotes = [{
         id: utilService.makeId(),
@@ -45,24 +48,52 @@ var gNotes = [{
     }
 ];
 
+_saveNotesToStorage(KEY, gNotes)
+
 function query() {
     return gNotes;
 }
 
+function saveNote(noteToEdit) {
+    return noteToEdit.id ? _updateNote(noteToEdit) : _addNote(noteToEdit)
+}
+
 function _addNote(noteToEdit) {
-    var note = _createCar(noteToEdit.vendor, noteToEdit.speed)
+    var note = _createNote(noteToEdit)
     gNotes.unshift(note)
-        // _saveCarsToStorage();
+    _saveNotesToStorage();
     return Promise.resolve()
 }
 
-function _createNote(vendor, speed) {
-    if (!speed) speed = utilService.getRandomIntInclusive(1, 200)
+function _createNote(note) {
+    console.log(note);
     return {
         id: utilService.makeId(),
-        vendor,
-        speed,
-        desc: utilService.makeLorem(),
-        ctg: ''
+        header: note.noteHeader,
+        type: note.type,
+        isPinned: false,
+        info: getInfo(note, note.type)
+    }
+}
+
+function _saveNotesToStorage() {
+    storageService.saveToStorage(KEY, gNotes)
+}
+
+function getInfo(note, type) {
+    if (type === 'note-txt') {
+        return {
+            txt: note.comment
+        }
+    } else if (type === 'note-img' || type === 'note-video') {
+        return {
+            url: note.imgUrl,
+            title: note.comment
+        }
+    } else if (type === 'note-todos') {
+        return {
+            label: 'bla',
+            todos: ['bla']
+        }
     }
 }
