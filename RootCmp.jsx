@@ -16,7 +16,7 @@ export function App() {
       <header>
         <AppHeader />
       </header>
-      <main>
+      <main className="main-layout">
         <Switch>
           <Route path='/mail/:mailId' component={MailDetails} />
           <Route path="/keep" component={KeepApp} />

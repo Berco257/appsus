@@ -1,7 +1,7 @@
 export function AppFooter() {
   return (
     <section className="app-footer">
-      <h1>FOOTER</h1>
+      <h1>Appsus</h1>
     </section>
   )
 }

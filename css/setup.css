@@ -3,6 +3,21 @@
 }
 
 body{
-    margin: 0;
     min-height: 100vh;
+    position: relative;
+    margin: 0;
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    color: #222222;
+}
+
+/* MAIN LAYOUT */
+.main-layout{
+    max-width: 900px;
+    margin: auto;
+    padding-inline-start: 10px;
+    padding-inline-end: 10px;
+}
+
+main{
+    padding-block-end: 100px;
 }

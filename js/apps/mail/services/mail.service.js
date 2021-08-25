@@ -10,8 +10,8 @@ export const mailService = {
     getMailById,
 }
 
-const KEY = 'mailDB';
 let gMails;
+const KEY = 'mailDB';
 const loggedinUser = {
     email: 'user@appsus.com',
     fullname: 'David Berco Ben Ishai'
@@ -75,6 +75,8 @@ function _createMail(to, from, sentAt, subject, body, isRead) {
         subject,
         body,
         isRead,
+        removedAt: null,
+        isStarred: false,
     }
 }
 
