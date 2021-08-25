@@ -1,6 +1,5 @@
 const { Link } = ReactRouterDOM
 
-import { eventBusService } from "../../../services/event-bus-service.js";
 import { mailService } from "../services/mail.service.js"
 
 export class MailDetails extends React.Component {
@@ -22,13 +21,6 @@ export class MailDetails extends React.Component {
             })
     }
 
-    removeMail = (mailId) => {
-        mailService.removeMail(mailId).then(() => {
-            eventBusService.emit('user-msg', { txt: 'Mail deleted!', type: 'danger' })
-            this.loadMail()
-        })
-    }
-
     render() {
         const { mail } = this.state
         if (!mail) return <div>Loading...</div>
@@ -42,12 +34,13 @@ export class MailDetails extends React.Component {
                 </section>
 
                 <section className='mail-details-container'>
-                    <div className="mail-details-subject">{mail.subject}</div>
+                    <div className="mail-details-subject">subject: {mail.subject}</div>
                     <div>
-                        <div className="mail-details-from">{mail.from}</div>
-                        <div className="mail-details-send-at">{mail.sentAt}</div>
+                        <div className="mail-details-from">from: {mail.from}</div>
+                        <div className="mail-details-send-at">sent at:{mail.sentAt}</div>
                     </div>
-                    <div className="mail-details-body">{mail.body}</div>
+                    <div className="mail-details-from">to: {mail.to}</div>
+                    <div className="mail-details-body">body: {mail.body}</div>
                 </section>
             </React.Fragment>
         )
