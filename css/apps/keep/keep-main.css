@@ -1,6 +1,7 @@
 @import './pages/keep-app.css';
 @import './cmps/note-preview.css';
 @import './cmps/note-list.css';
+@import './cmps/dynamicInputs/color-input.css';
 .keep-app {
     background-color: #fff;
 }

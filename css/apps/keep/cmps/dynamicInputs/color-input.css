@@ -1,0 +1,12 @@
+.input-container {
+    height: 80px;
+    width: 80px;
+    display: flex;
+    background-color: whitesmoke;
+}
+
+.input-pick {
+    height: 25px;
+    width: 25px;
+    border-radius: 2px;
+}
