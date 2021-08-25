@@ -1,3 +1,5 @@
+'use strict';
+
 import { storageService } from '../../../services/storage.service.js'
 import { utilService } from '../../../services/util.service.js'
 
@@ -5,6 +7,7 @@ export const mailService = {
     query,
     addMail,
     removeMail,
+    getMailById,
 }
 
 const KEY = 'mailDB';
@@ -41,6 +44,12 @@ function removeMail(mailId) {
     gMails.splice(mailIdx, 1)
     _saveMailsToStorage();
     return Promise.resolve()
+}
+
+
+function getMailById (mailId) {
+    var mail = gMails.find(mail => mailId === mail.id)
+    return Promise.resolve(mail)
 }
 
 function _createMails() {
