@@ -1,5 +1,5 @@
 import { noteService } from '../services/note.service.js';
-
+import {NoteList} from '../cmps/note-list.jsx'
 
 export class KeepApp extends React.Component{
     state = {
@@ -16,11 +16,11 @@ export class KeepApp extends React.Component{
 
     render(){
         const {notes} = this.state;
-        console.log(notes);
+        if (notes.length===0) return <div>loading...</div>
         return(
             <section className="keep-app">
                 <h1>Keep app</h1>
-                {/* <note-preview/> */}
+                <NoteList notes={notes}/>
             </section>
         )
     }
