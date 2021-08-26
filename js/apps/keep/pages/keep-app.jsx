@@ -46,6 +46,7 @@ export class KeepApp extends React.Component {
     }
 
     onEditNote = (note) => {
+        this.zeroStateNote();
         this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, id: note.id, noteHeader: note.header, type: note.type } }))
         // const noteInfo = noteService.getInfo(note, note.type)
         if (note.type === 'note-txt') {
