@@ -47,7 +47,7 @@ function removeMail(mailId) {
 }
 
 
-function getMailById (mailId) {
+function getMailById(mailId) {
     var mail = gMails.find(mail => mailId === mail.id)
     return Promise.resolve(mail)
 }
@@ -56,11 +56,11 @@ function _createMails() {
     gMails = storageService.loadFromStorage(KEY)
     if (!gMails || !gMails.length) {
         gMails = [
-            _createMail('user@appsus.com', 'support@appsus.com', 1551133930594, 'Welcome from Appsus!', 'Thank you for signup!', false),
-            _createMail('benishai@gmail.com', 'user@appsus.com', 1551133930594, 'Keep App', 'Well done for the great work! Everything works just great! Thanks', true),
-            _createMail('alon@coding-academy.com', 'user@appsus.com', 1551133930594, 'Yooooo alon wu?!', 'We just wanted to catch up. How are you? Stay in Touch!', false),
-            _createMail('user@appsus.com', 'support@appsus.com', 1551133930594, 'Customer service', 'Thanks for writing to us. We will get back to you within 48 hours.', true),
-            _createMail('berc.david@gmail.com', 'user@appsus.com', 1551133930594, 'How are you?', 'I wanted to know if you are getting along with the new app. waiting for update.', false),
+            _createMail(['David Berco Ben Ishai', 'user@appsus.com'], ['Appsus support', 'support@appsus.com'], 1551133930594, 'Welcome from Appsus!', 'Thank you for signup!', false),
+            _createMail(['David ben ishai', 'benishai@gmail.com'], ['David Berco Ben Ishai', 'user@appsus.com'], 1551133930594, 'Keep App', 'Well done for the great work! Everything works just great! Thanks', true),
+            _createMail(['Alon', 'alon@coding-academy.com'], ['David Berco Ben Ishai', 'user@appsus.com'], 1551133930594, 'Yooooo alon wu?!', 'We just wanted to catch up. How are you? Stay in Touch!', false),
+            _createMail(['David Berco Ben Ishai', 'user@appsus.com'], ['Apsus support', 'support@appsus.com'], 1551133930594, 'Customer service', 'Thanks for writing to us. We will get back to you within 48 hours.', true),
+            _createMail(['Berco', 'berc.david@gmail.com'], ['David Berco Ben Ishai', 'user@appsus.com'], 1551133930594, 'How are you?', 'I wanted to know if you are getting along with the new app. waiting for update.', false),
         ]
         _saveMailsToStorage();
     }

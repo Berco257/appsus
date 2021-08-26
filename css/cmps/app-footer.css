@@ -8,3 +8,9 @@
     justify-content: center;
     align-items: center;
 }
+
+.app-footer h1{
+    font-size: 1.5rem;
+    text-shadow: rgb(206 149 105) 1px 1px 3px;
+    margin: 0px;
+}
