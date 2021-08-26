@@ -1,16 +1,19 @@
 import { NoteDyanmic } from '../cmps/note-dynamic.jsx'
 import { TodoLine } from '../cmps/todo-line.jsx'
 import { noteService } from '../services/note.service.js'
+// import { eventBusService } from "../../../services/event-bus-service.js"
+
 export class NotePreview extends React.Component {
     state = {
         infoType: null,
     }
-    componentDidMount() {
-    }
+    // componentDidMount() {
+    //     eventBusService.emit('note-edit', this.onEditCLick)
+    // }
 
     onChangeInputType = ({ target }) => {
         this.setState({ inputType: target.value })
-      }
+    }
 
     onChangeStyle = (field, value) => {
         console.log('field', field)
@@ -19,8 +22,12 @@ export class NotePreview extends React.Component {
 
     onDeleteNote = () => {
         noteService.deleteNote(this.props.note.id)
-        .then(this.props.loadNotes())
-      }
+            .then(this.props.loadNotes())
+    }
+
+    // onEditCLick =(note)=> {
+    //     return note;
+    // }
 
     render() {
         const { note } = this.props
@@ -28,8 +35,9 @@ export class NotePreview extends React.Component {
         if (type === 'note-txt') {
             return (
                 <article className="note-preview">
-                    <NoteDyanmic note={note}/>
-                    <button onClick = {this.onDeleteNote}>Delete</button>
+                    <NoteDyanmic note={note} />
+                    <button onClick={this.onDeleteNote}>Delete</button>
+                    {/* <button onClick={() => { this.onEditCLick(note) }}>Edit</button> */}
                 </article>
             )
         } else if (type === 'note-img') {
@@ -38,7 +46,7 @@ export class NotePreview extends React.Component {
                     <h3>{note.header}</h3>
                     <h4>{note.info.title}</h4>
                     <img src={note.info.url} alt="" />
-                    <button onClick = {this.onDeleteNote}>Delete</button>
+                    <button onClick={this.onDeleteNote}>Delete</button>
                 </article>
             )
         } else if (type === 'note-todos') {
@@ -47,7 +55,7 @@ export class NotePreview extends React.Component {
                     <h3>{note.header}</h3>
                     <h4>Label: {note.info.label}</h4>
                     {note.info.todos.map((todo, idx) => <TodoLine key={idx} todo={todo} />)}
-                    <button onClick = {this.onDeleteNote}>Delete</button>
+                    <button onClick={this.onDeleteNote}>Delete</button>
                 </article>
             )
         } else if (type === 'note-video') {
@@ -56,8 +64,8 @@ export class NotePreview extends React.Component {
                     <h3>{note.header}</h3>
                     <h4>{note.info.title}</h4>
                     <iframe width="250" height="187" src={note.info.url}>
-                    <button onClick = {this.onDeleteNote}>Delete</button>
                     </iframe>
+                    <button onClick={this.onDeleteNote}>Delete</button>
                 </article>
             )
         }

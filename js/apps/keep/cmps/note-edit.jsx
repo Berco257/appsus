@@ -1,4 +1,5 @@
 import { noteService } from '../services/note.service.js';
+import { eventBusService } from "../../../services/event-bus-service.js"
 export class NoteEdit extends React.Component {
     state = {
         note: {
@@ -10,14 +11,33 @@ export class NoteEdit extends React.Component {
             type: '',
         }
     }
+    // removeEventBus;
+
+    // componentDidMount() {
+    //     this.removeEventBus = eventBusService.on('note-edit', (note) => {
+    //         this.onEditNote(note);
+    //     })
+    // }
+
+    // componentWillUnmount() {
+    //     this.removeEventBus()
+    // }
+
+    // onEditNote = (note) => {
+    //     debugger;
+    //     this.setState(prevState => ({ note: { ...prevState.note, id: note.id } }))
+    //     this.setState(prevState => ({ note: { ...prevState.note, noteHeader: note.header } }))
+    //     this.setState(prevState => ({ note: { ...prevState.note, type: note.type } }))
+    // }
     handleChange = ({ target }) => {
+        debugger;
         const field = target.name
         const value = target.value
-        if (field === 'imgUrl' ) {
-            this.setState(prevState => ({ note: { ...prevState.note, type: 'note-img' } }))    
-        } else if (field === 'videoUrl' ){
+        if (field === 'imgUrl') {
+            this.setState(prevState => ({ note: { ...prevState.note, type: 'note-img' } }))
+        } else if (field === 'videoUrl') {
             this.setState(prevState => ({ note: { ...prevState.note, type: 'note-video' } }))
-        } else if (field === comment && (this.state.note.noteHeader ==='' && this.state.note.videoUrl ==='')){
+        } else if ((field === 'comment') && ((this.state.note.imgUrl === '') && (this.state.note.videoUrl === ''))) {
             this.setState(prevState => ({ note: { ...prevState.note, type: 'note-txt' } }))
         }
         this.setState(prevState => ({ note: { ...prevState.note, [field]: value } }))
@@ -25,11 +45,11 @@ export class NoteEdit extends React.Component {
     onSaveNote = (ev) => {
         ev.preventDefault()
         noteService.saveNote(this.state.note)
-        .then(() => this.props.loadNotes())
+            .then(() => this.props.loadNotes())
         this.zeroStateNote();
     }
 
-    zeroStateNote = ()=>{
+    zeroStateNote = () => {
         this.setState(prevState => ({ note: { ...prevState.note, id: null } }))
         this.setState(prevState => ({ note: { ...prevState.note, noteHeader: '' } }))
         this.setState(prevState => ({ note: { ...prevState.note, comment: '' } }))
@@ -39,7 +59,7 @@ export class NoteEdit extends React.Component {
     }
 
     render() {
-        const { id,noteHeader, comment, imgUrl, videoUrl } = this.state.note
+        const { id, noteHeader, comment, imgUrl, videoUrl } = this.state.note
         return (
             <form className="note-add" onSubmit={this.onSaveNote}>
                 <h1>{id ? 'Edit' : 'Add'} Note</h1>

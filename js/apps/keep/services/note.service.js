@@ -65,6 +65,15 @@ function _addNote(noteToEdit) {
     return Promise.resolve()
 }
 
+function _updateNote(noteToEdit) {
+    var noteIdx = gNotes.findIndex(function(note) {
+        return note.id === noteToEdit.id;
+    })
+    gNotes[noteIdx] = noteToEdit
+    _saveNotesToStorage();
+    return Promise.resolve()
+}
+
 function _createNote(note) {
     console.log(note);
     return {
