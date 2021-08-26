@@ -1,6 +1,6 @@
 'use strict'
 
-export const utilService = {
+export const mailUtilService = {
     redirectWrongFolder,
 }
 

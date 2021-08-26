@@ -1,7 +1,7 @@
 const { Route, Switch } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
-import { utilService } from '../services/util.service.js'
+import { mailUtilService } from '../services/mail.util.service.js'
 import { MailList } from '../cmps/mail-list.jsx'
 import { MailSideNav } from '../cmps/mail-side-nav.jsx'
 
@@ -13,8 +13,8 @@ export class MailApp extends React.Component {
 
     componentDidMount() {
         const pathName = this.props.location.pathname.split("/")[2]
-        if (utilService.redirectWrongFolder(pathName)) this.props.history.push('/mail/inbox')
-        this.loadMails()
+        if (mailUtilService.redirectWrongFolder(pathName)) this.props.history.push('/mail/inbox')
+        this.loadMails(pathName)
     }
 
     loadMails = () => {
