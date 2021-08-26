@@ -6,8 +6,10 @@ export class NoteImg extends React.Component {
                 <h3>{note.header}</h3>
                 <h4>{note.info.title}</h4>
                 <img src={note.info.url} alt="" />
+                <div className="btns-container">
                 <button onClick={this.props.onDeleteNote}>Delete</button>
                 <button onClick={() => { this.props.onEditNote(note) }}>Edit</button>
+                </div>
             </section>
         )
     }

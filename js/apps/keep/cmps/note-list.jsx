@@ -10,7 +10,6 @@ export class NoteList extends React.Component {
   render() {
     return (
       <div className="note-list">
-        <h1>notes</h1>
         {this.props.notes.map(note => <NotePreview key={note.id} note={note} loadNotes = {this.props.loadNotes} onEditNote={this.props.onEditNote}/>)}
       </div>
     )

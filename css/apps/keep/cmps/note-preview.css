@@ -7,3 +7,14 @@
     background-color: #fff;
     padding: 10px;
 }
+
+
+/* Notes Buttons */
+
+.note-preview button {
+    background-color: #fce8e6;
+    border-color: transparent;
+    border-radius: 4px;
+    height: 35px;
+    font-weight: bold;
+}

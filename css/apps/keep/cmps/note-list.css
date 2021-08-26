@@ -1,5 +1,24 @@
 .note-list {
     column-count: 3;
+    column-width: 200px;
     column-gap: 50px;
     margin: 20px;
+    min-height: fit-content;
+}
+
+.note-list>article {
+    -webkit-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 10px;
+}
+
+.note-list article section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.note-list article section button {
+    margin: 10px;
 }

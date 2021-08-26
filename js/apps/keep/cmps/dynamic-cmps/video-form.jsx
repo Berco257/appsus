@@ -14,7 +14,8 @@ export class VideoForm extends React.Component {
                 </div>
                 <label htmlFor="videoUrl" ><i className="fab fa-youtube"></i></label>
                 <div className="video-input-cont">
-                    <input type="url" name="videoUrl" id="videoUrl" value={videoUrl} onChange={(ev) => { this.props.handleChange(ev) }} />
+                    <input type="url" name="videoUrl" id="videoUrl" value={videoUrl} placeholder="Enter video URL"
+                    onChange={(ev) => { this.props.handleChange(ev) }} />
                 </div>
                 <button onSubmit={this.props.onSaveNote}>Save Note</button>
             </form>

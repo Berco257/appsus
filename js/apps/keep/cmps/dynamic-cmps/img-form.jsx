@@ -14,7 +14,8 @@ export class ImgForm extends React.Component {
                 </div>
                 <label htmlFor="imgUrl" ><i className="far fa-image"></i></label>
                 <div className="img-input-cont">
-                    <input type="url" name="imgUrl" id="imgUrl" value={imgUrl} onChange={(ev) => { this.props.handleChange(ev) }} />
+                    <input type="url" name="imgUrl" id="imgUrl" value={imgUrl} placeholder="Enter imape URL"
+                    onChange={(ev) => { this.props.handleChange(ev) }} />
                 </div>
                 <button onSubmit={this.props.onSaveNote}>Save Note</button>
             </form>

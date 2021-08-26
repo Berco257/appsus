@@ -3,6 +3,7 @@
 @import './cmps/note-list.css';
 @import './cmps/dynamicInputs/color-input.css';
 @import './cmps/todo-line.css';
+@import './cmps/note-edit.css';
 .keep-app {
     background-color: #fff;
 }
