@@ -1,41 +1,53 @@
+import { ImgForm } from '../cmps/dynamic-cmps/img-form.jsx';
+import { VideoForm } from '../cmps/dynamic-cmps/video-form.jsx';
+import { TodoForm } from '../cmps/dynamic-cmps/todo-form.jsx';
 import { noteService } from '../services/note.service.js';
 export class NoteEdit extends React.Component {
-
+    state = {
+        isFormShown: false,
+        currView: '',
+    }
     onSaveNote = (ev) => {
+        debugger;
         ev.preventDefault()
         noteService.saveNote(this.props.note)
             .then(() => this.props.loadNotes())
         this.props.zeroStateNote();
     }
 
+    toggleForm = () => {
+        this.setState({ isFormShown: !this.state.isFormShown })
+    }
+    
+
     render() {
-        const { id, noteHeader, comment, imgUrl, videoUrl, todoTxt } = this.props.note
+        const { note } = this.props
+        const {id, noteHeader, comment} = this.props.note
+        const {handleChange} = this.props
+        const {currView} = this.state
+        const DynamicCmp = (props) => {
+            switch (currView) {
+                case 'img-form':
+                    return <ImgForm note={note} handleChange={handleChange} onSaveNote = {this.onSaveNote}/>
+                case 'video-form':
+                    return <VideoForm note={note} handleChange={handleChange} onSaveNote = {this.onSaveNote}/>
+                case 'todo-form':
+                    return <TodoForm note={note} handleChange={handleChange} onSaveNote = {this.onSaveNote}/>
+                default:
+                    return <div>Choose Note</div>
+            }
+        }
         return (
-            <form className="note-add" onSubmit={this.onSaveNote}>
-                <h1>{id ? 'Edit' : 'Add'} Note</h1>
-                <div className="input-header">
-                    <label htmlFor="noteHeader" >Header</label>
-                    <input type="text" name="noteHeader" id="noteHeader" value={noteHeader} onChange={(ev) => { this.props.handleChange(ev) }} />
+            <section className="edit-options">
+                <button onClick={this.toggleForm}>New Note</button>
+                <div className= "forms-container" hidden={!this.state.isFormShown}>
+                    <button onClick={()=>{this.setState({currView: 'img-form'})}}><i className="far fa-image"></i></button>
+                    <button onClick={()=>{this.setState({currView: 'video-form'})}}><i className="fab fa-youtube"></i></button>
+                    <button onClick={()=>{this.setState({currView: 'todo-form'})}}><i className="far fa-check-square"></i></button>
+                    <DynamicCmp/>
                 </div>
-                <div className="input-comment">
-                    <label htmlFor="comment" >Comment</label>
-                    <input type="text" name="comment" id="comment" value={comment} onChange={(ev) => { this.props.handleChange(ev) }} />
-                </div>
-                <label htmlFor="imgUrl" ><i class="far fa-image"></i></label>
-                <div className="img-input-cont">
-                    <input type="url" name="imgUrl" id="imgUrl" value={imgUrl} onChange={(ev) => { this.props.handleChange(ev) }} />
-                </div>
-                <label htmlFor="videoUrl" ><i class="fab fa-youtube"></i></label>
-                <div className="video-input-cont">
-                    <input type="url" name="videoUrl" id="videoUrl" value={videoUrl} onChange={(ev) => { this.props.handleChange(ev) }} />
-                </div>
-                <label htmlFor="todoTxt" ><i class="far fa-check-square"></i></label>
-                <div className="todo-input-cont">
-                    <input name="todoTxt" type="text" placeholder="Enter comma seperated list..." value={todoTxt}
-                        onChange={(ev) => { this.props.handleChange(ev) }} />
-                </div>
-                <button onSubmit={this.onSaveNote}>Save Note</button>
-            </form>
+            </section>
+
         )
     }
 }
