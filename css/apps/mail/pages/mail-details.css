@@ -1,3 +1,8 @@
-.mail-setails{
-    color: black;
+.mail-details{
+    opacity: 1;
+}
+
+.mail-details-wrapper{
+    display: flex;
+    gap: 60px;
 }

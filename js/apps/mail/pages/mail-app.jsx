@@ -2,6 +2,7 @@ const { Route, Switch } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
 import { MailList } from '../cmps/mail-list.jsx'
+import { MailSideNav } from '../cmps/mail-side-nav.jsx'
 
 export class MailApp extends React.Component {
     state = {
@@ -31,7 +32,10 @@ export class MailApp extends React.Component {
         return (
             <section className="mail-app">
                 <h1>Mail app</h1>
-                <MailList mails={mailsToShow}/>
+                <div className="mail-app-wrapper">
+                    <MailSideNav />
+                    <MailList mails={mailsToShow} />
+                </div>
             </section>
         )
     }

@@ -1,3 +1,4 @@
 .mail-list{
-    color: black;
+    flex-grow: 1;
+    width: 0;
 }

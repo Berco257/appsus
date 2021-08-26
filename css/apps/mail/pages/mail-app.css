@@ -2,3 +2,8 @@
     font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
     font-size: 0.875rem;
 }
+
+.mail-app-wrapper{
+    display: flex;
+    gap: 60px;
+}
