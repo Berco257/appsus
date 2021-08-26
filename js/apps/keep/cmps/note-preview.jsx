@@ -16,7 +16,6 @@ export class NotePreview extends React.Component {
     }
 
     onChangeStyle = (field, value) => {
-        console.log('field', field)
         this.setState(prevState => ({ footerStyle: { ...prevState.footerStyle, [field]: value } }))
     }
 
@@ -37,7 +36,7 @@ export class NotePreview extends React.Component {
                 <article className="note-preview">
                     <NoteDyanmic note={note} />
                     <button onClick={this.onDeleteNote}>Delete</button>
-                    {/* <button onClick={() => { this.onEditCLick(note) }}>Edit</button> */}
+                    <button onClick={() => { this.props.onEditNote(note) }}>Edit</button>
                 </article>
             )
         } else if (type === 'note-img') {

@@ -75,7 +75,6 @@ function _updateNote(noteToEdit) {
 }
 
 function _createNote(note) {
-    console.log(note);
     return {
         id: utilService.makeId(),
         header: note.noteHeader,
@@ -110,7 +109,6 @@ function getInfo(note, type) {
 function _createNotes() {
     gNotes = storageService.loadFromStorage(KEY)
     if (!gNotes || !gNotes.length) {
-        console.log(gNotes);
         gNotes = gData;
         _saveNotesToStorage();
     }

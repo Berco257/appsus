@@ -17,13 +17,11 @@ export class NoteDyanmic extends React.Component {
     }
 
     onChangeStyle = (field, value) => {
-        console.log('field', field)
         this.setState(prevState => ({ footerStyle: { ...prevState.footerStyle, [field]: value } }))
     }
 
     render() {
         const { note } = this.props
-        console.log(note);
         const { inputType, footerStyle } = this.state
         const DynamicCmp = (props) => {
             switch (props.type) {
