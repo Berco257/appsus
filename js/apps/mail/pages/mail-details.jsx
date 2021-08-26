@@ -1,6 +1,7 @@
 const { Link } = ReactRouterDOM
 
 import { mailService } from "../services/mail.service.js"
+import { utilService } from '../services/util.service.js'
 import { MailSideNav } from "../cmps/mail-side-nav.jsx"
 
 export class MailDetails extends React.Component {
@@ -9,6 +10,8 @@ export class MailDetails extends React.Component {
     }
 
     componentDidMount() {
+        const pathName = this.props.location.pathname.split("/")[2]
+        if (utilService.redirectWrongFolder(pathName)) this.props.history.push('/mail/inbox')
         this.loadMail()
     }
 
@@ -17,7 +20,7 @@ export class MailDetails extends React.Component {
         mailService.getMailById(mailId)
             .then(mail => {
                 this.setState({ mail }, () => {
-                    if (!this.state.mail) this.props.history.push('/mail')
+                    if (!this.state.mail) this.props.history.push('/mail/inbox')
                 })
             })
     }

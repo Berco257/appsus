@@ -8,6 +8,8 @@ export const mailService = {
     addMail,
     removeMail,
     getMailById,
+    moveMailToTrash,
+    toggleMailIsRead,
 }
 
 let gMails;
@@ -35,6 +37,19 @@ function query(filterBy) {
 function addMail({ to, from, sentAt, subject, body, isRead }) {
     var mail = _createMail(to, from, sentAt, subject, body, isRead)
     gMails.unshift(mail)
+    _saveMailsToStorage();
+    return Promise.resolve()
+}
+
+function toggleMailIsRead(mailId){
+    var mailIdx = gMails.findIndex(mail => mailId === mail.id)
+    gMails[mailIdx].isRead = !gMails[mailIdx].isRead
+    return Promise.resolve()
+}
+
+function moveMailToTrash(mailId){
+    var mailIdx = gMails.findIndex(mail => mailId === mail.id)
+    gMails[mailIdx].removedAt = Date.now()
     _saveMailsToStorage();
     return Promise.resolve()
 }

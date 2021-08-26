@@ -18,7 +18,8 @@ export function App() {
       </header>
       <main className="main-layout">
         <Switch>
-          <Route path='/mail/:mailId' component={MailDetails} />
+          <Route path='/mail/:folder/:mailId' component={MailDetails} />
+          <Route path='/mail/:folder' component={MailApp} />
           <Route path="/keep" component={KeepApp} />
           <Route path="/mail" component={MailApp} />
           <Route path="/about" component={About} />
