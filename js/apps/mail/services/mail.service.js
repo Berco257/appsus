@@ -25,9 +25,11 @@ function query(filterBy) {
     if (filterBy) {
         const mailsToShow = gMails.filter(mail => {
             switch (filterBy) {
+                case 'starred':
+                    return mail.isStarred && mail.sentAt && !mail.removedAt
                 case 'inbox':
                     return mail.to[1] === loggedinUser.email && mail.sentAt && !mail.removedAt
-                    case 'sent':
+                case 'sent':
                     return mail.to[1] !== loggedinUser.email && mail.sentAt && !mail.removedAt
                 case 'draft':
                     return !mail.sentAt && !mail.removedAt

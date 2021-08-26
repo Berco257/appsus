@@ -6,7 +6,7 @@ export const mailUtilService = {
 
 function isWrongFolder(pathName) {
     if (!(pathName === 'inbox' || pathName === 'sent' ||
-        pathName === 'draft' || pathName === 'trash')) {
+        pathName === 'draft' || pathName === 'trash' || pathName === 'starred')) {
 
         return true
     }

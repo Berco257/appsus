@@ -19,15 +19,24 @@ export function MailPreview({ mail, moveMailToTrash, toggleMailIsRead, pathName 
         return date
     }
 
+    const isTrash = () => {
+        if (mail.removedAt) return true
+        return false
+    }
+
+    const trash = isTrash()
+
     return (
-        <article className={`mail-preview ${!mail.isRead ? "bold" : ""}`}>
+        <article className={`mail-preview ${!mail.isRead ? "bold" : ""} ${trash ? "line-through" : ""}`}>
             {/* <Link to={`/mail/${mail.id}`} > */}
             <div className="mail-preview-wrapper">
                 <Link to={`${pathName}/${mail.id}`} ><div>{mail.from[0]}</div></Link>
                 <div><Link to={`${pathName}/${mail.id}`} >{mail.subject}<span> - {mail.body}</span></Link></div>
                 <div><Link to={`${pathName}/${mail.id}`} >{getDate()}</Link></div>
                 <div className="action">
-                    <div onClick={() => moveMailToTrash(mail.id)}><img src="./img/apps/mail/trash.png" /></div>
+                    {trash ? <div onClick={() => moveMailToTrash(mail.id)}><img src="./img/apps/mail/remove.png" /></div> : 
+                    <div onClick={() => moveMailToTrash(mail.id)}><img src="./img/apps/mail/trash.png" /></div>}
+                    
                     <div onClick={() => toggleMailIsRead(mail.id)}>{mail.isRead ? <img src="./img/apps/mail/markunread.png" /> : <img src="./img/apps/mail/markread.png" />}</div>
                 </div>
             </div>
