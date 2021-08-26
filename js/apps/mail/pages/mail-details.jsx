@@ -20,7 +20,14 @@ export class MailDetails extends React.Component {
         mailService.getMailById(mailId)
             .then(mail => {
                 this.setState({ mail }, () => {
-                    if (!this.state.mail) this.props.history.push('/mail/inbox')
+                    if (!this.state.mail){
+                        this.props.history.push('/mail/inbox')
+                        return
+                    }
+                    if (!this.state.mail.isRead) {
+                        const mailId = this.state.mail.id
+                        mailService.toggleMailIsRead(mailId)
+                    }
                 })
             })
     }

@@ -52,13 +52,25 @@ export class MailApp extends React.Component {
         })
     }
 
+    toggleMailIsStarred = mailId => {
+        mailService.toggleMailIsStarred(mailId).then((mail) => {
+            this.loadMails()
+        })
+    }
 
-    // removeMail = (mailId) => {
-    //     mailService.removeMail(mailId).then(() => {
-    //         eventBusService.emit('user-msg', { txt: 'Mail deleted!', type: 'danger' })
-    //         this.loadMail()
-    //     })
-    // }
+    removeMail = (mailId) => {
+        mailService.removeMail(mailId).then(() => {
+            // eventBusService.emit('user-msg', { txt: 'Mail deleted!', type: 'danger' })
+            this.loadMails()
+        })
+    }
+
+    restoreMail = (mailId) => {
+        mailService.restoreMail(mailId).then(() => {
+            // eventBusService.emit('user-msg', { txt: 'Mail deleted!', type: 'danger' })
+            this.loadMails()
+        })
+    }
 
     render() {
         const { mailsToShow } = this.state
@@ -68,7 +80,10 @@ export class MailApp extends React.Component {
                 <h1>Mail app</h1>
                 <div className="mail-app-wrapper">
                     <MailSideNav />
-                    <MailList mails={mailsToShow} moveMailToTrash={this.moveMailToTrash} toggleMailIsRead={this.toggleMailIsRead} pathName={pathName} />
+                    <MailList mails={mailsToShow} moveMailToTrash={this.moveMailToTrash}
+                        toggleMailIsRead={this.toggleMailIsRead} pathName={pathName}
+                        removeMail={this.removeMail} restoreMail={this.restoreMail} 
+                        toggleMailIsStarred={this.toggleMailIsStarred}/>
                 </div>
             </section>
         )
