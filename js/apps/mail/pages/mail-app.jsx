@@ -4,6 +4,7 @@ import { mailService } from '../services/mail.service.js'
 import { mailUtilService } from '../services/mail.util.service.js'
 import { MailList } from '../cmps/mail-list.jsx'
 import { MailSideNav } from '../cmps/mail-side-nav.jsx'
+import { NewMail } from '../cmps/new-mail.jsx'
 
 export class MailApp extends React.Component {
     state = {
@@ -79,11 +80,14 @@ export class MailApp extends React.Component {
             <section className="mail-app">
                 <h1>Mail app</h1>
                 <div className="mail-app-wrapper">
-                    <MailSideNav />
+                    <div className="wrapper">
+                        <NewMail />
+                        <MailSideNav />
+                    </div>
                     <MailList mails={mailsToShow} moveMailToTrash={this.moveMailToTrash}
                         toggleMailIsRead={this.toggleMailIsRead} pathName={pathName}
-                        removeMail={this.removeMail} restoreMail={this.restoreMail} 
-                        toggleMailIsStarred={this.toggleMailIsStarred}/>
+                        removeMail={this.removeMail} restoreMail={this.restoreMail}
+                        toggleMailIsStarred={this.toggleMailIsStarred} />
                 </div>
             </section>
         )

@@ -1,4 +1,8 @@
-.mail-list{
+.mail-list {
     flex-grow: 1;
     width: 0;
+}
+
+.mail-list .empty {
+    font-size: 1.5rem;
 }
