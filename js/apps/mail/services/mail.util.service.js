@@ -1,10 +1,10 @@
 'use strict'
 
 export const mailUtilService = {
-    redirectWrongFolder,
+    isWrongFolder,
 }
 
-function redirectWrongFolder(pathName) {
+function isWrongFolder(pathName) {
     if (!(pathName === 'inbox' || pathName === 'sent' ||
         pathName === 'draft' || pathName === 'trash')) {
 

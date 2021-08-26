@@ -13,8 +13,25 @@ export class MailApp extends React.Component {
 
     componentDidMount() {
         const pathName = this.props.location.pathname.split("/")[2]
-        if (mailUtilService.redirectWrongFolder(pathName)) this.props.history.push('/mail/inbox')
-        this.loadMails(pathName)
+        if (mailUtilService.isWrongFolder(pathName)) {
+            this.props.history.push('/mail/inbox')
+            this.setState({ filterBy: 'inbox' }, () => this.loadMails())
+            return
+        }
+        this.setState({ filterBy: pathName }, () => this.loadMails())
+
+    }
+    componentDidUpdate(prevProps, prevState) {
+        const pathName = this.props.location.pathname.split("/")[2]
+        if (mailUtilService.isWrongFolder(pathName)) {
+            this.props.history.push('/mail/inbox')
+            this.setState({ filterBy: 'inbox' }, () => this.loadMails())
+            return
+        }
+
+        if (prevProps.location.pathname.split("/")[2] !== pathName) {
+            this.setState({ filterBy: pathName }, () => this.loadMails())
+        }
     }
 
     loadMails = () => {

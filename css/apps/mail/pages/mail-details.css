@@ -1,8 +1,9 @@
-.mail-details{
-    opacity: 1;
+.mail-details, .mail-details-container {
+    font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    font-size: 0.875rem;
 }
 
-.mail-details-wrapper{
+.mail-details-wrapper {
     display: flex;
     gap: 60px;
 }

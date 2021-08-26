@@ -11,7 +11,7 @@ export class MailDetails extends React.Component {
 
     componentDidMount() {
         const pathName = this.props.location.pathname.split("/")[2]
-        if (mailUtilService.redirectWrongFolder(pathName)) this.props.history.push('/mail/inbox')
+        if (mailUtilService.isWrongFolder(pathName)) this.props.history.push('/mail/inbox')
         this.loadMail()
     }
 
@@ -27,6 +27,8 @@ export class MailDetails extends React.Component {
 
     render() {
         const { mail } = this.state
+        const pathName = this.props.location.pathname.split("/")[2]
+
         if (!mail) return <div>Loading...</div>
 
         return (
@@ -38,7 +40,7 @@ export class MailDetails extends React.Component {
                     <div className="mail-details">
                         <div className="mail-nav-container">
                             <nav className="mail-nav">
-                                <div className="mail-nav-back"><Link to='/mail'><img src="./img/apps/mail/arrow_back.png" /></Link></div>
+                                <div className="mail-nav-back"><Link to={`/mail/${pathName}`}><img src="./img/apps/mail/arrow_back.png" /></Link></div>
                             </nav>
                         </div>
                         <div className="mail-details-subject">subject: {mail.subject}</div>
