@@ -69,7 +69,9 @@ function _updateNote(noteToEdit) {
     var noteIdx = gNotes.findIndex(function(note) {
         return note.id === noteToEdit.id;
     })
-    gNotes[noteIdx] = noteToEdit
+    let updatedNote = _createNote(noteToEdit)
+    updatedNote.id = noteToEdit.id
+    gNotes[noteIdx] = updatedNote
     _saveNotesToStorage();
     return Promise.resolve()
 }
@@ -83,6 +85,7 @@ function _createNote(note) {
         info: getInfo(note, note.type)
     }
 }
+
 
 function _saveNotesToStorage() {
     storageService.saveToStorage(KEY, gNotes)

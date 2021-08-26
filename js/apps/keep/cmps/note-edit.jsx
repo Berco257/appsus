@@ -41,7 +41,6 @@ export class NoteEdit extends React.Component {
         ev.preventDefault()
         noteService.saveNote(this.props.note)
             .then(() => this.props.loadNotes())
-        debugger;
         this.props.zeroStateNote();
     }
 
