@@ -19,13 +19,22 @@ export function MailPreview({ mail }) {
         return date
     }
 
+    const onMsg = () => {
+        console.log('heeeellllooooo');
+    }
     return (
         <article className="mail-preview">
-            <Link to={`/mail/${mail.id}`} >
-                <div>{mail.from[0]}</div>
-                <div>{mail.subject}<span> - {mail.body}</span> </div>
-                <div>{getDate()}</div>
-            </Link>
+            {/* <Link to={`/mail/${mail.id}`} > */}
+                <div className="mail-preview-wrapper">
+                <Link to={`/mail/${mail.id}`} ><div>{mail.from[0]}</div></Link>
+                    <div><Link to={`/mail/${mail.id}`} >{mail.subject}<span> - {mail.body}</span></Link></div>
+                    <div><Link to={`/mail/${mail.id}`} >{getDate()}</Link></div>
+                    <div className="action">
+                        <div ><img src="./img/apps/mail/trash.png" /></div>
+                        <div>{mail.isRead ? <img src="./img/apps/mail/markunread.png" /> : <img src="./img/apps/mail/markread.png" />}</div>
+                    </div>
+                </div>
+            {/* </Link> */}
         </article>
     )
 }
