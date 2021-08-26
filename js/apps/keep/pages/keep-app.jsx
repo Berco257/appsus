@@ -11,6 +11,7 @@ export class KeepApp extends React.Component {
             comment: '',
             imgUrl: '',
             videoUrl: '',
+            todoTxt: '',
             type: '',
         }
     }
@@ -30,14 +31,17 @@ export class KeepApp extends React.Component {
             this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, type: 'note-img' } }))
         } else if (field === 'videoUrl') {
             this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, type: 'note-video' } }))
-        } else if ((field === 'comment') && ((this.state.noteEdit.imgUrl === '') && (this.state.noteEdit.videoUrl === ''))) {
+        } else if (field ==='todoTxt'){
+            this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, type: 'note-todos' } }))
+        } else if ((field === 'comment') && ((this.state.noteEdit.imgUrl === '') && (this.state.noteEdit.videoUrl === '')
+        &&(this.state.noteEdit.todoTxt === ''))) {
             this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, type: 'note-txt' } }))
-        }
+        } 
         this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, [field]: value } }))
     }
 
     zeroStateNote = () => {
-        const emptyNote = { id: null, noteHeader: '', comment: '', imgUrl: '', videoUrl: '', type: '' }
+        const emptyNote = { id: null, noteHeader: '', comment: '', imgUrl: '', videoUrl: '', type: '',todoTxt: '' }
         this.setState({ noteEdit: emptyNote })
     }
 
@@ -49,6 +53,11 @@ export class KeepApp extends React.Component {
         } else if (note.type === 'note-img' || note.type === 'note-video') {
             this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, comment: note.info.title } }))
             this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, imgUrl: note.info.url } }))
+        } else if (note.type === 'note-todos'){
+            console.log(note.info.todos);
+            const todotxt = note.info.todos.map(todo => todo.txt)
+            this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, comment: note.info.label } }))
+            this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, todoTxt: todotxt } }))   
         }
     }
 

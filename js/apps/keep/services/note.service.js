@@ -102,9 +102,14 @@ function getInfo(note, type) {
             title: note.comment
         }
     } else if (type === 'note-todos') {
+        let todoList = note.todoTxt.split(',')
+        let txtAndDates = todoList.map(todo => {
+            return { txt: todo, doneAt: Date.now() }
+        })
+        console.log(txtAndDates);
         return {
-            label: 'bla',
-            todos: ['bla']
+            label: note.comment,
+            todos: txtAndDates
         }
     }
 }
