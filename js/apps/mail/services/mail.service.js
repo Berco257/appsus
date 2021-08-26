@@ -22,15 +22,21 @@ const loggedinUser = {
 _createMails();
 
 function query(filterBy) {
-    // if (filterBy) {
-    //     let { unread, minPrice, maxPrice } = filterBy
-    //     minPrice = minPrice ? minPrice : 0
-    //     maxPrice = maxPrice ? maxPrice : Infinity
-    //     const mailsToShow = gBooks.filter(book => {
-    //         return book.title.includes(title) && book.listPrice.amount >= minPrice && book.listPrice.amount <= maxPrice
-    //     })
-    //     return Promise.resolve(mailsToShow)
-    // }
+    if (filterBy) {
+        const mailsToShow = gMails.filter(mail => {
+            switch (filterBy) {
+                case 'inbox':
+                    return mail.to[1] === loggedinUser.email && mail.sentAt && !mail.removedAt
+                    case 'sent':
+                    return mail.to[1] !== loggedinUser.email && mail.sentAt && !mail.removedAt
+                case 'draft':
+                    return !mail.sentAt && !mail.removedAt
+                case 'trash':
+                    return mail.removedAt
+            }
+        })
+        return Promise.resolve(mailsToShow)
+    }
     return Promise.resolve(gMails)
 }
 
@@ -41,13 +47,13 @@ function addMail({ to, from, sentAt, subject, body, isRead }) {
     return Promise.resolve()
 }
 
-function toggleMailIsRead(mailId){
+function toggleMailIsRead(mailId) {
     var mailIdx = gMails.findIndex(mail => mailId === mail.id)
     gMails[mailIdx].isRead = !gMails[mailIdx].isRead
     return Promise.resolve()
 }
 
-function moveMailToTrash(mailId){
+function moveMailToTrash(mailId) {
     var mailIdx = gMails.findIndex(mail => mailId === mail.id)
     gMails[mailIdx].removedAt = Date.now()
     _saveMailsToStorage();
@@ -73,7 +79,7 @@ function _createMails() {
         gMails = [
             _createMail(['David Berco Ben Ishai', 'user@appsus.com'], ['Appsus support', 'support@appsus.com'], 1551133930594, 'Welcome from Appsus!', 'Thank you for signup!', false),
             _createMail(['David ben ishai', 'benishai@gmail.com'], ['David Berco Ben Ishai', 'user@appsus.com'], 1551133930594, 'Keep App', 'Well done for the great work! Everything works just great! Thanks', true),
-            _createMail(['Alon', 'alon@coding-academy.com'], ['David Berco Ben Ishai', 'user@appsus.com'], 1551133930594, 'Yooooo alon wu?!', 'We just wanted to catch up. How are you? Stay in Touch!', false),
+            _createMail(['Alon', 'alon@coding-academy.com'], ['David Berco Ben Ishai', 'user@appsus.com'], 0, 'Yooooo alon wu?!', 'We just wanted to catch up. How are you? Stay in Touch!', false),
             _createMail(['David Berco Ben Ishai', 'user@appsus.com'], ['Apsus support', 'support@appsus.com'], 1551133930594, 'Customer service', 'Thanks for writing to us. We will get back to you within 48 hours.', true),
             _createMail(['Berco', 'berc.david@gmail.com'], ['David Berco Ben Ishai', 'user@appsus.com'], 1551133930594, 'How are you?', 'I wanted to know if you are getting along with the new app. waiting for update.', false),
         ]
@@ -90,7 +96,7 @@ function _createMail(to, from, sentAt, subject, body, isRead) {
         subject,
         body,
         isRead,
-        removedAt: null,
+        removedAt: 0,
         isStarred: false,
     }
 }

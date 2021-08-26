@@ -3,5 +3,29 @@
 }
 
 .mail-side-nav div {
-    padding: 10px;
+    /* padding: 5px; */
+}
+
+.mail-side-nav a:-webkit-any-link {
+    color: #202124;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.mail-side-nav a {
+    display: block;
+    padding-inline-end: 80px;
+    padding-inline-start: 5px;
+    padding-block-start: 5px;
+    padding-block-end: 5px;
+    border-start-end-radius: 15px;
+    border-end-end-radius: 15px;
+}
+
+.mail-side-nav a:hover {
+    background-color: #e8eaed;
+}
+
+.mail-side-nav a.active {
+    background-color: #fce8e6;
 }
