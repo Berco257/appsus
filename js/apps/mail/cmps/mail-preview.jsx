@@ -1,6 +1,8 @@
 const { Link } = ReactRouterDOM
 
-export function MailPreview({ mail, moveMailToTrash, toggleMailIsRead, pathName, removeMail, restoreMail }) {
+export function MailPreview({ mail, moveMailToTrash, toggleMailIsRead, pathName,
+    removeMail, restoreMail, toggleMailIsStarred }) {
+
     const getDate = () => {
         const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         const year = new Date(mail.sentAt).getYear()
@@ -18,32 +20,49 @@ export function MailPreview({ mail, moveMailToTrash, toggleMailIsRead, pathName,
         const date = `${month} ${day}`
         return date
     }
-
-    const isTrash = () => {
-        if (mail.removedAt) return true
-        return false
-    }
-
-    const trash = isTrash()
-
+    const folder = pathName.split("/")[2]
     return (
-        <article className={`mail-preview ${!mail.isRead ? "bold" : ""} ${trash ? "line-through" : ""}`}>
-            {/* <Link to={`/mail/${mail.id}`} > */}
+        <article className={`mail-preview ${!mail.isRead ? "bold" : ""} ${folder === 'trash' ? "line-through" : ""}`}>
             <div className="mail-preview-wrapper">
-                <Link to={`${pathName}/${mail.id}`} ><div>{mail.from[0]}</div></Link>
-                <div><Link to={`${pathName}/${mail.id}`} >{mail.subject}<span> - {mail.body}</span></Link></div>
-                <div><Link to={`${pathName}/${mail.id}`} >{getDate()}</Link></div>
-                <div className={`action ${trash ? "mw120" : ""}`}>
-                    {trash ? <div onClick={() => removeMail(mail.id)}><img src="./img/apps/mail/remove.png" /></div> :
-                        <div onClick={() => moveMailToTrash(mail.id)}><img src="./img/apps/mail/trash.png" /></div>}
-                    
-                    <div onClick={() => toggleMailIsRead(mail.id)}>{mail.isRead ?
-                        <img src="./img/apps/mail/markunread.png" /> : <img src="./img/apps/mail/markread.png" />}</div>
+                <div className={`star ${mail.isStarred ? 'active' : ''}`} onClick={() => toggleMailIsStarred(mail.id)}></div>
+                <Link to={`${pathName}/${mail.id}`} >
+                    <div className="from-to">
+                        {mail.dir === 'out' ?
+                            (`To: ${mail.to[0]}`) :
+                            (mail.from[0])}
+                    </div>
+                </Link>
+                <div className="subject">
+                    <Link to={`${pathName}/${mail.id}`} >
+                        {mail.subject}<span> - {mail.body}</span>
+                    </Link>
+                </div>
+                <div className="date-wrapper">
+                    <Link to={`${pathName}/${mail.id}`} >
+                        {getDate()}
+                    </Link>
+                </div>
+                <div className={`action ${folder === 'trash' ? "mw120" : ""}`}>
+                    {folder === 'trash' ?
+                        <div onClick={() => removeMail(mail.id)}>
+                            <img src="./img/apps/mail/remove.png" />
+                        </div> :
+                        <div onClick={() => moveMailToTrash(mail.id)}>
+                            <img src="./img/apps/mail/trash.png" />
+                        </div>}
 
-                        {trash && <div onClick={() => restoreMail(mail.id)}><img src="./img/apps/mail/restore.png" /></div>}
+                    <div onClick={() => toggleMailIsRead(mail.id)}>
+                        {mail.isRead ?
+                            <img src="./img/apps/mail/markunread.png" /> :
+                            <img src="./img/apps/mail/markread.png" />}
+                    </div>
+
+                    {folder === 'trash' &&
+                        <div onClick={() => restoreMail(mail.id)}>
+                            <img src="./img/apps/mail/restore.png" />
+                        </div>}
                 </div>
             </div>
-            {/* </Link> */}
         </article>
     )
 }
