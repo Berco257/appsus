@@ -5,3 +5,7 @@
 .line-through {
     text-decoration-line: line-through;
 }
+
+.mw120 {
+    min-width: 120px !important;
+}

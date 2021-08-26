@@ -10,6 +10,7 @@
     display: flex;
     align-items: center;
 }
+
 .mail-preview-wrapper>div:nth-child(2)>a:first-child {
     width: 100%;
     padding-block-end: 10px;
@@ -17,6 +18,7 @@
     line-height: 2.5rem;
     text-align: start;
 }
+
 .mail-preview a:-webkit-any-link {
     color: unset;
     text-decoration: none;
@@ -40,7 +42,9 @@
     width: 20px;
 }
 
-.mail-preview>.mail-preview-wrapper>.action>div:first-child, .mail-preview>.mail-preview-wrapper>.action>div:nth-child(2) {
+.mail-preview>.mail-preview-wrapper>.action>div:first-child,
+.mail-preview>.mail-preview-wrapper>.action>div:nth-child(2),
+.mail-preview>.mail-preview-wrapper>.action>div:nth-child(3) {
     position: absolute;
     inset-block: 1px;
     width: 40px;
@@ -52,14 +56,20 @@
 }
 
 .mail-preview>.mail-preview-wrapper>.action>div:first-child {
-    inset-inline-end: 35px;
-}
-
-.mail-preview>.mail-preview-wrapper>.action>div:nth-child(2) {
     inset-inline-end: 2px;
 }
 
-.mail-preview>.mail-preview-wrapper>.action>div:first-child:hover, .mail-preview>.mail-preview-wrapper>.action>div:nth-child(2):hover {
+.mail-preview>.mail-preview-wrapper>.action>div:nth-child(2) {
+    inset-inline-end: 35px;
+}
+
+.mail-preview>.mail-preview-wrapper>.action>div:nth-child(3) {
+    inset-inline-end: 68px;
+}
+
+.mail-preview>.mail-preview-wrapper>.action>div:first-child:hover,
+.mail-preview>.mail-preview-wrapper>.action>div:nth-child(2):hover,
+.mail-preview>.mail-preview-wrapper>.action>div:nth-child(3):hover {
     background: #f1f1f1;
 }
 
@@ -99,7 +109,6 @@
     white-space: pre;
     height: 100%;
     width: 100%;
-
 }
 
 .mail-preview>.mail-preview-wrapper>div:nth-child(2)>a>span {

@@ -10,6 +10,7 @@ export const mailService = {
     getMailById,
     moveMailToTrash,
     toggleMailIsRead,
+    restoreMail,
 }
 
 let gMails;
@@ -58,6 +59,13 @@ function toggleMailIsRead(mailId) {
 function moveMailToTrash(mailId) {
     var mailIdx = gMails.findIndex(mail => mailId === mail.id)
     gMails[mailIdx].removedAt = Date.now()
+    _saveMailsToStorage();
+    return Promise.resolve()
+}
+
+function restoreMail (mailId){
+    var mailIdx = gMails.findIndex(mail => mailId === mail.id)
+    gMails[mailIdx].removedAt = 0
     _saveMailsToStorage();
     return Promise.resolve()
 }

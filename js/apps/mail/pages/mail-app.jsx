@@ -52,13 +52,19 @@ export class MailApp extends React.Component {
         })
     }
 
+    removeMail = (mailId) => {
+        mailService.removeMail(mailId).then(() => {
+            // eventBusService.emit('user-msg', { txt: 'Mail deleted!', type: 'danger' })
+            this.loadMails()
+        })
+    }
 
-    // removeMail = (mailId) => {
-    //     mailService.removeMail(mailId).then(() => {
-    //         eventBusService.emit('user-msg', { txt: 'Mail deleted!', type: 'danger' })
-    //         this.loadMail()
-    //     })
-    // }
+    restoreMail = (mailId) => {
+        mailService.restoreMail(mailId).then(() => {
+            // eventBusService.emit('user-msg', { txt: 'Mail deleted!', type: 'danger' })
+            this.loadMails()
+        })
+    }
 
     render() {
         const { mailsToShow } = this.state
@@ -68,7 +74,9 @@ export class MailApp extends React.Component {
                 <h1>Mail app</h1>
                 <div className="mail-app-wrapper">
                     <MailSideNav />
-                    <MailList mails={mailsToShow} moveMailToTrash={this.moveMailToTrash} toggleMailIsRead={this.toggleMailIsRead} pathName={pathName} />
+                    <MailList mails={mailsToShow} moveMailToTrash={this.moveMailToTrash}
+                    toggleMailIsRead={this.toggleMailIsRead} pathName={pathName}
+                    removeMail={this.removeMail} restoreMail={this.restoreMail} />
                 </div>
             </section>
         )
