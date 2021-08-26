@@ -22,7 +22,7 @@ export class KeepApp extends React.Component{
             <section className="keep-app">
                 <h1>Keep app</h1>
                 <NoteEdit loadNotes = {this.loadNotes}/>
-                <NoteList notes={notes}/>
+                <NoteList notes={notes} loadNotes = {this.loadNotes}/>
             </section>
         )
     }
