@@ -20,7 +20,7 @@ export function MailPreview({ mail, moveMailToTrash, toggleMailIsRead }) {
     }
 
     return (
-        <article className="mail-preview">
+        <article className={`mail-preview ${!mail.isRead ? "bold" : ""}`}>
             {/* <Link to={`/mail/${mail.id}`} > */}
             <div className="mail-preview-wrapper">
                 <Link to={`/mail/${mail.id}`} ><div>{mail.from[0]}</div></Link>
@@ -28,7 +28,7 @@ export function MailPreview({ mail, moveMailToTrash, toggleMailIsRead }) {
                 <div><Link to={`/mail/${mail.id}`} >{getDate()}</Link></div>
                 <div className="action">
                     <div onClick={() => moveMailToTrash(mail.id)}><img src="./img/apps/mail/trash.png" /></div>
-                    <div onClick={() => toggleMailIsRead(mail.id)}>{mail.isRead ? <img src="./img/apps/mail/markread.png" /> : <img src="./img/apps/mail/markunread.png" />}</div>
+                    <div onClick={() => toggleMailIsRead(mail.id)}>{mail.isRead ? <img src="./img/apps/mail/markunread.png" /> : <img src="./img/apps/mail/markread.png" />}</div>
                 </div>
             </div>
             {/* </Link> */}

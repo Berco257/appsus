@@ -1,8 +1,9 @@
-@import '../css/setup.css';
-@import '../css/pages/app-home.css';
-@import '../css/pages/app-about.css';
-@import '../css/cmps/app-header.css';
-@import '../css/cmps/app-footer.css';
-@import '../css/cmps/user-msg.css';
-@import '../css/apps/keep/keep-main.css';
-@import '../css/apps/mail/mail-main.css';
+@import './setup.css';
+@import './pages/app-home.css';
+@import './pages/app-about.css';
+@import './cmps/app-header.css';
+@import './cmps/app-footer.css';
+@import './cmps/user-msg.css';
+@import './apps/keep/keep-main.css';
+@import './apps/mail/mail-main.css';
+@import './parts/helpers.css'

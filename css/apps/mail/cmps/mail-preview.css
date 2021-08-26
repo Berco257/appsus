@@ -4,12 +4,18 @@
 
 .mail-preview a {
     height: 100%;
+}
+
+.mail-preview-wrapper>div:nth-child(3)>a:first-child {
     display: flex;
     align-items: center;
 }
-
 .mail-preview-wrapper>div:nth-child(2)>a:first-child {
     width: 100%;
+    padding-block-end: 10px;
+    padding-block-start: 10px;
+    line-height: 2.5rem;
+    text-align: start;
 }
 .mail-preview a:-webkit-any-link {
     color: unset;
@@ -93,9 +99,7 @@
     white-space: pre;
     height: 100%;
     width: 100%;
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
+
 }
 
 .mail-preview>.mail-preview-wrapper>div:nth-child(2)>a>span {
