@@ -1,6 +1,6 @@
 const { Link } = ReactRouterDOM
 
-export function MailPreview({ mail }) {
+export function MailPreview({ mail, moveMailToTrash, toggleMailIsRead }) {
     const getDate = () => {
         const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         const year = new Date(mail.sentAt).getYear()
@@ -19,21 +19,18 @@ export function MailPreview({ mail }) {
         return date
     }
 
-    const onMsg = () => {
-        console.log('heeeellllooooo');
-    }
     return (
         <article className="mail-preview">
             {/* <Link to={`/mail/${mail.id}`} > */}
-                <div className="mail-preview-wrapper">
+            <div className="mail-preview-wrapper">
                 <Link to={`/mail/${mail.id}`} ><div>{mail.from[0]}</div></Link>
-                    <div><Link to={`/mail/${mail.id}`} >{mail.subject}<span> - {mail.body}</span></Link></div>
-                    <div><Link to={`/mail/${mail.id}`} >{getDate()}</Link></div>
-                    <div className="action">
-                        <div ><img src="./img/apps/mail/trash.png" /></div>
-                        <div>{mail.isRead ? <img src="./img/apps/mail/markunread.png" /> : <img src="./img/apps/mail/markread.png" />}</div>
-                    </div>
+                <div><Link to={`/mail/${mail.id}`} >{mail.subject}<span> - {mail.body}</span></Link></div>
+                <div><Link to={`/mail/${mail.id}`} >{getDate()}</Link></div>
+                <div className="action">
+                    <div onClick={() => moveMailToTrash(mail.id)}><img src="./img/apps/mail/trash.png" /></div>
+                    <div onClick={() => toggleMailIsRead(mail.id)}>{mail.isRead ? <img src="./img/apps/mail/markread.png" /> : <img src="./img/apps/mail/markunread.png" />}</div>
                 </div>
+            </div>
             {/* </Link> */}
         </article>
     )
