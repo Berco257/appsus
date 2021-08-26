@@ -1,0 +1,27 @@
+.edit-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-options .add-note-btn {
+    background-color: #fce8e6;
+    border-color: transparent;
+    border-radius: 4px;
+    height: 35px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.edit-options button {
+    background-color: #fce8e6;
+    border-color: transparent;
+    border-radius: 3px;
+    margin: 5px;
+}
+
+.choose-note-txt {
+    font-size: 0.8rem;
+    text-align: center;
+}

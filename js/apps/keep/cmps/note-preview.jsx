@@ -39,7 +39,7 @@ export class NotePreview extends React.Component {
             )
         } else if (type === 'note-todos') {
             return (
-                <article className="note-todos">
+                <article className="note-preview">
                     <NoteTodos note = {note} onEditNote ={this.props.onEditNote} onDeleteNote={this.onDeleteNote}/>                    
                 </article>
             )
