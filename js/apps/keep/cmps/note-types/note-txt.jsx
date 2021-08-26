@@ -5,7 +5,7 @@ export class NoteTxt extends React.Component {
         return (
             <section className="note-txt">
                 <NoteDyanmic note={note} />
-                <button onClick={this.onDeleteNote}>Delete</button>
+                <button onClick={this.props.onDeleteNote}>Delete</button>
                 <button onClick={() => { this.props.onEditNote(note) }}>Edit</button>
             </section>
         )
