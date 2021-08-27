@@ -30,7 +30,7 @@ export class NoteEdit extends React.Component {
         const DynamicCmp = (props) => {
             switch (currView) {
                 case 'note-img':
-                    return <ImgForm note={note} handleChange={handleChange} onSaveNote={this.onSaveNote} />
+                    return <ImgForm note={note} key="form-edit" handleChange={handleChange} onSaveNote={this.onSaveNote} />
                 case 'note-video':
                     return <VideoForm note={note} handleChange={handleChange} onSaveNote={this.onSaveNote} />
                 case 'note-todos':

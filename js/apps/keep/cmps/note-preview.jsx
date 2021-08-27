@@ -28,25 +28,25 @@ export class NotePreview extends React.Component {
         if (type === 'note-txt') {
             return (
                 <article className="note-preview">
-                    <NoteTxt note = {note} onEditNote ={this.props.onEditNote} onDeleteNote={this.onDeleteNote}/>
+                    <NoteTxt note = {note} onEditNote ={this.props.onEditNote} onDeleteNote={this.onDeleteNote} loadNotes={this.props.loadNotes}/>
                 </article>
             )
         } else if (type === 'note-img') {
             return (
                 <article className="note-preview">
-                    <NoteImg note = {note} onEditNote ={this.props.onEditNote} onDeleteNote={this.onDeleteNote}/>
+                    <NoteImg note = {note} onEditNote ={this.props.onEditNote} onDeleteNote={this.onDeleteNote}loadNotes={this.props.loadNotes}/>
                 </article>
             )
         } else if (type === 'note-todos') {
             return (
                 <article className="note-preview">
-                    <NoteTodos note = {note} onEditNote ={this.props.onEditNote} onDeleteNote={this.onDeleteNote}/>                    
+                    <NoteTodos note = {note} onEditNote ={this.props.onEditNote} onDeleteNote={this.onDeleteNote}loadNotes={this.props.loadNotes}/>                    
                 </article>
             )
         } else if (type === 'note-video') {
             return (
                 <article className="note-preview">
-                    <NoteVideo note = {note} onEditNote ={this.props.onEditNote} onDeleteNote={this.onDeleteNote}/>
+                    <NoteVideo note = {note} onEditNote ={this.props.onEditNote} onDeleteNote={this.onDeleteNote}loadNotes={this.props.loadNotes}/>
                 </article>
             )
         }
