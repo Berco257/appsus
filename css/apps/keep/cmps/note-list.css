@@ -1,4 +1,4 @@
-.note-list {
+.note-list .note-pinned-container {
     column-count: 3;
     column-width: 200px;
     column-gap: 50px;
@@ -6,18 +6,27 @@
     min-height: fit-content;
 }
 
-.note-list>article {
+.note-list .note-preview-container {
+    column-count: 3;
+    column-width: 200px;
+    column-gap: 50px;
+    margin: 20px;
+    min-height: fit-content;
+}
+
+.note-pinned-container>article {
     -webkit-break-inside: avoid;
     break-inside: avoid;
     margin-bottom: 10px;
 }
 
-.note-list article section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.note-preview-container>article {
+    -webkit-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 10px;
 }
+
+.note-list article section {}
 
 .note-list article section button {
     margin: 10px;
