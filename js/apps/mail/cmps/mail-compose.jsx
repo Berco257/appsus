@@ -9,25 +9,43 @@ export class MailCompose extends React.Component {
         isNewMailActive: false
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.composedMail !== this.props.composedMail) {
+            if (this.props.composedMail !== null) {
+                const { subject, body } = this.props.composedMail
+                const toEmail = this.props.composedMail.to.email
+                const mailId = this.props.composedMail.id
+                clearInterval(this.interval)
+                this.setState({ mail: { toEmail, subject, body }, mailId }, () => {
+                    this.interval = setInterval(() => {
+                        this.onAddEditMail(this.state.mail, 0, false)
+                    }, 5000)
+                })
+            }
+        }
+    }
+
     componentWillUnmount() {
         clearInterval(this.interval)
     }
 
     interval;
     showDraft = () => {
-        if (this.state.isNewMailActive) return
-        const mailId = this.props.createId()
-        this.setState({ isNewMailActive: true, mailId }, () => {
+        clearInterval(this.interval)
+        const mailId = this.props.makeId()
+        this.props.setComposeMode(true)
+        this.setState({ mail: { toEmail: '', subject: '', body: '' }, mailId }, () => {
             this.interval = setInterval(() => {
-                this.addEditMail(this.state.mail, 0, false)
+                this.onAddEditMail(this.state.mail, 0, false)
             }, 5000)
         })
     }
 
-    removeDraft = () => {
+    onRemoveMail = () => {
         clearInterval(this.interval)
-        this.props.removeMail(this.state.mailId)
-        this.setState({ isNewMailActive: false, mail: { toEmail: '', subject: '', body: '' } })
+        this.props.onRemoveMail(this.state.mailId, this.props.func)
+        this.props.setComposeMode(false)
+        this.setState({ mail: { toEmail: '', subject: '', body: '' } })
     }
 
     handleChange = ({ target }) => {
@@ -36,20 +54,20 @@ export class MailCompose extends React.Component {
         this.setState(prevState => ({ mail: { ...prevState.mail, [field]: value } }))
     }
 
-    addEditMail = (mail, sentAt, isAddEditDone) => {
-        this.props.addEditMail(mail, sentAt, this.state.mailId)
+    onAddEditMail = (mail, sentAt, isAddEditDone) => {
+        this.props.onAddEditMail(mail, sentAt, this.state.mailId, this.props.func)
         if (isAddEditDone) {
             clearInterval(this.interval)
-            this.setState({ isNewMailActive: false, mail: { toEmail: '', subject: '', body: '' }, mailId: null })
-            return
+            this.props.setComposeMode(false)
+            this.setState({ mail: { toEmail: '', subject: '', body: '' }, mailId: null })
         }
     }
 
     render() {
-        const { mail, isNewMailActive } = this.state
+        const { mail } = this.state
         return (
             <div className="mail-compose-container">
-                <div className={`compose ${isNewMailActive ? 'active' : ''}`} onClick={this.showDraft}>
+                <div className={`compose ${this.props.isComposeMode ? 'active' : ''}`} onClick={this.showDraft}>
                     Compose
                 </div>
                 <div className="mail-compose">
@@ -68,9 +86,9 @@ export class MailCompose extends React.Component {
                             </textarea>
 
                         </div>
-                        <div className="send-btn" onClick={() => this.addEditMail(mail, Date.now(), true)} >Send</div>
-                        <div className="save-exit-btn" onClick={() => this.addEditMail(mail, 0, true)} >{`Save & exit`}</div>
-                        <div className="remove-draft-btn" onClick={this.removeDraft}><img src="./img/apps/mail/trash.png" alt="" /></div>
+                        <div className="send-btn" onClick={() => this.onAddEditMail(mail, Date.now(), true)} >Send</div>
+                        <div className="save-exit-btn" onClick={() => this.onAddEditMail(mail, 0, true)} >{`Save & exit`}</div>
+                        <div className="remove-draft-btn" onClick={this.onRemoveMail}><img src="./img/apps/mail/trash.png" alt="" /></div>
                     </form>
                 </div>
             </div>

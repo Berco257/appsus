@@ -1,12 +1,16 @@
 const { Link } = ReactRouterDOM
 
-import { mailService } from "../services/mail.service.js"
+import { mailService } from '../services/mail.service.js'
 import { mailUtilService } from '../services/mail.util.service.js'
+import { utilService } from '../../../services/util.service.js'
+
 import { MailFolderList } from "../cmps/mail-folder-list.jsx"
+import { MailCompose } from '../cmps/mail-compose.jsx'
 
 export class MailDetails extends React.Component {
     state = {
         mail: null,
+        isComposeMode: false,
     }
 
     componentDidMount() {
@@ -32,6 +36,10 @@ export class MailDetails extends React.Component {
             })
     }
 
+    setComposeMode = (mode) => {
+        this.setState({ isComposeMode: mode })
+    }
+
     getDate = () => {
         const { mail } = this.state
         const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -49,7 +57,7 @@ export class MailDetails extends React.Component {
     }
 
     render() {
-        const { mail } = this.state
+        const { mail, isComposeMode } = this.state
         const pathName = this.props.location.pathname.split("/")[2]
 
         if (!mail) return <div>Loading...</div>
@@ -59,7 +67,13 @@ export class MailDetails extends React.Component {
                 <h1>Mail app</h1>
 
                 <div className="mail-details-wrapper">
-                    <MailFolderList />
+                    <div className="wrapper">
+                    <MailCompose func={this.loadMails} onAddEditMail={mailUtilService.onAddEditMail}
+                            makeId={utilService.makeId} onRemoveMail={mailUtilService.onRemoveMail}
+                            isComposeMode={isComposeMode} setComposeMode={this.setComposeMode} composedMail={null}/>
+
+                        <MailFolderList />
+                    </div>
                     <div className="mail-details">
                         <div className="mail-nav-container">
                             <nav className="mail-nav">

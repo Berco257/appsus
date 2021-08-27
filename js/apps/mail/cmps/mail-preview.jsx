@@ -1,7 +1,7 @@
 const { Link } = ReactRouterDOM
 
 export function MailPreview({ mail, moveMailToTrash, toggleMailIsRead, pathName,
-    removeMail, restoreMail, toggleMailIsStarred }) {
+    onRemoveMail, restoreMail, toggleMailIsStarred, func, setComposeMode }) {
 
     const getDate = () => {
         const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -12,23 +12,30 @@ export function MailPreview({ mail, moveMailToTrash, toggleMailIsRead, pathName,
         const day = new Date(mail.sentAt).getDate()
         const currDay = new Date().getDate()
         if (year === currYear && month === currMonth && day === currDay) {
-            const hours = new Date(mail.sentAt).getHours()
-            const minutes = new Date(mail.sentAt).getMinutes()
+            let hours = new Date(mail.sentAt).getHours()
+            hours = hours < 10 ? `0${hours}` : hours;
+            let minutes = new Date(mail.sentAt).getMinutes()
+            minutes = minutes < 10 ? `0${minutes}` : minutes;
             if (hours >= 0 && hours < 12) return `${hours}:${minutes} am`
             else return `${hours}:${minutes} pm`
         }
         const date = `${month} ${day}`
         return date
     }
-    
+    const print = () => {
+        console.log('helllloooo');
+    }
+
     const folder = pathName.split("/")[2]
+    const link = folder === 'draft' ? null : `${pathName}/${mail.id}`
+    const action = folder === 'draft' ? () => setComposeMode(true, mail.id) : ''
     return (
         <article className={`mail-preview ${!mail.isRead ? "bold" : ""} ${folder === 'trash' ? "line-through" : ""}`}>
             <div className="mail-preview-wrapper">
                 <div className={`star ${mail.isStarred ? 'active' : ''}`} onClick={() => toggleMailIsStarred(mail.id)}></div>
-                <Link to={`${pathName}/${mail.id}`} >
+                <Link to={link} onClick={() => setComposeMode(true, mail.id)}>
                     <div className="from-to">
-                        {mail.dir === 'out' ?
+                        {mail.dir === 'out' && folder != 'inbox' ?
                             (`To: ${mail.to.fullname}`) :
                             (mail.from.fullname)}
                     </div>
@@ -45,7 +52,7 @@ export function MailPreview({ mail, moveMailToTrash, toggleMailIsRead, pathName,
                 </div>
                 <div className={`action ${folder === 'trash' ? "mw120" : ""}`}>
                     {folder === 'trash' ?
-                        <div onClick={() => removeMail(mail.id)}>
+                        <div onClick={() => onRemoveMail(mail.id, func)}>
                             <img src="./img/apps/mail/remove.png" />
                         </div> :
                         <div onClick={() => moveMailToTrash(mail.id)}>
