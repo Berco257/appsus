@@ -1,24 +1,41 @@
 export class ImgForm extends React.Component {
+    state = {
+        note: {
+            id: '', 
+            noteHeader: '',
+            comment: '',
+            imgUrl: '',
+            videoUrl: '',
+            todoTxt: '',
+            type: '',
+        },
+    }
+
+    componentDidMount() {
+        this.setState({note:this.props.note})
+    }
+    
     render() {
-        const { id, noteHeader, comment, imgUrl, videoUrl, todoTxt, type } = this.props.note
         return (
-            <form className="note-add" onSubmit={this.props.onSaveNote}>
-                <h1>{id ? 'Edit' : 'Add'} Note</h1>
-                <div className="input-header">
+            <div className="wrapper">
+                <form className="img-form" onSubmit={this.props.onSaveNote}>
+                    <h1>{this.state.note.id ? 'Edit' : 'Add'} Note</h1>
+                    <div className="input-header">
                     <label htmlFor="noteHeader" >Header</label>
-                    <input type="text" name="noteHeader" id="noteHeader" value={noteHeader} onChange={(ev) => { this.props.handleChange(ev) }} />
-                </div>
-                <div className="input-comment">
+                    <input type="text" name="noteHeader" id="noteHeader" value={this.state.note.noteHeader} onChange={this.props.handleChange} />
+                    </div>
+                    <div className="input-comment">
                     <label htmlFor="comment" >Comment</label>
-                    <input type="text" name="comment" id="comment" value={comment} onChange={(ev) => { this.props.handleChange(ev) }} />
-                </div>
-                <label htmlFor="imgUrl" ><i className="far fa-image"></i></label>
-                <div className="img-input-cont">
-                    <input type="url" name="imgUrl" id="imgUrl" value={imgUrl} placeholder="Enter imape URL"
-                    onChange={(ev) => { this.props.handleChange(ev) }} />
-                </div>
-                <button onSubmit={this.props.onSaveNote}>Save Note</button>
-            </form>
+                    <input type="text" name="comment" id="comment" value={this.state.note.comment} onChange={this.props.handleChange} />
+                    </div>
+                    <div className="input-imgUrl">
+                    <label htmlFor="imgUrl" ><i className="far fa-image"></i></label>
+                    <input type="url" name="imgUrl" id="imgUrl" value={this.state.note.imgUrl} placeholder="Enter imape URL"
+                        onChange={this.props.handleChange} />
+                    </div>
+                    <button onSubmit={this.props.onSaveNote}>Save Note</button>
+                </form>
+            </div>
         )
     }
 }

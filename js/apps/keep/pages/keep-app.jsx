@@ -1,34 +1,43 @@
 import { noteService } from '../services/note.service.js';
 import { NoteList } from '../cmps/note-list.jsx'
 import { NoteEdit } from '../cmps/note-edit.jsx'
+import { NoteFilter } from '../cmps/note-filter.jsx'
 
 export class KeepApp extends React.Component {
     state = {
         notes: [],
         noteEdit: {
-            id: null, // when edeting, I need to import id when did mount
-            noteHeader: '',
+            id: null,
+            header: '',
             comment: '',
             imgUrl: '',
             videoUrl: '',
             todoTxt: '',
             type: '',
         },
-        // isFormShown: false,
-        // currView: ''
+        filterBy: null
+        // keepKey:'keep-app',
+        // noteEditKey: 'note-edit-cont'
     }
     componentDidMount() {
         this.loadNotes();
     }
 
     loadNotes = () => {
-        let notes = noteService.query();
-        this.setState({ notes });
+        noteService.pinNotes();
+        noteService.query(this.state.filterBy).then((notes) => {
+            this.setState({ notes })
+        })
     }
+
+    onSetFilter = (filterBy) => {
+        this.setState({ filterBy }, this.loadNotes);
+    };
 
     handleChange = ({ target }) => {
         const field = target.name
         const value = target.value
+        console.log(target.value);
         if (field === 'imgUrl') {
             this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, type: 'note-img' } }))
         } else if (field === 'videoUrl') {
@@ -67,10 +76,11 @@ export class KeepApp extends React.Component {
         const { notes, isFormShown, currView } = this.state;
         if (notes.length === 0) return <div>loading...</div>
         return (
-            <section className="keep-app">
+            <section className="keep-app" >
                 <h1>Keep app</h1>
-                <NoteEdit loadNotes={this.loadNotes} note={this.state.noteEdit} handleChange={this.handleChange}
-                    zeroStateNote={this.zeroStateNote}/>
+                <NoteFilter onSetFilter={this.onSetFilter} />
+                <NoteEdit className="note-edit" loadNotes={this.loadNotes} note={this.state.noteEdit} handleChange={this.handleChange}
+                    zeroStateNote={this.zeroStateNote} />
                 <NoteList notes={notes} loadNotes={this.loadNotes} onEditNote={this.onEditNote} />
             </section>
         )
