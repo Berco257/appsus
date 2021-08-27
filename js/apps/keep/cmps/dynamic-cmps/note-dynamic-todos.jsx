@@ -1,18 +1,18 @@
 import { ColorInput } from './dynamicInputs/color-input.jsx';
 import { noteService } from '../services/note.service.js';
+import { TodoLine } from '../../cmps/todo-line.jsx'
 
-
-export class NoteDyanmic extends React.Component {
+export class NoteDyanmicTodos extends React.Component {
 
     state = {
         inputType: 'color',
-        footerStyle: {
+        noteStyle: {
 
         }
     }
 
     onChangeStyle = (field, value) => {
-        this.setState(prevState => ({ footerStyle: { ...prevState.footerStyle, [field]: value } }))
+        this.setState(prevState => ({ noteStyle: { ...prevState.noteStyle, [field]: value } }))
     }
 
     onPinNote = () => {
@@ -29,7 +29,7 @@ export class NoteDyanmic extends React.Component {
 
     render() {
         const { note } = this.props
-        const { inputType, footerStyle } = this.state
+        const { inputType, noteStyle } = this.state
         const DynamicCmp = (props) => {
             switch (props.type) {
                 case 'color':
@@ -37,9 +37,10 @@ export class NoteDyanmic extends React.Component {
             }
         }
         return (
-            <section style={footerStyle} className="note-dynamic">
+            <section style={noteStyle} className="note-dynamic">
                 <h3>{note.header}</h3>
-                <h4>{note.info.txt}</h4>
+                <h4>Label: {note.info.label}</h4>
+                {note.info.todos.map((todo, idx) => <TodoLine key={idx} todo={todo} />)}
                 <div className="btns-container">
                 <DynamicCmp onChangeStyle={this.onChangeStyle} type={inputType} />
                     <button onClick={this.props.onDeleteNote}><i className="fas fa-trash-alt"></i></button>

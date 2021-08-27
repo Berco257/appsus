@@ -104,19 +104,20 @@ function _addNote(noteToEdit) {
 }
 
 function _updateNote(noteToEdit) {
-    debugger;
     var noteIdx = gNotes.findIndex(function(note) {
         return note.id === noteToEdit.id;
     })
     let updatedNote = _createNote(noteToEdit)
     updatedNote.isPinned = noteToEdit.isPinned
     updatedNote.id = noteToEdit.id
+    updatedNote.info = getInfo(noteToEdit)
     gNotes[noteIdx] = updatedNote
     _saveNotesToStorage();
     return Promise.resolve()
 }
 
 function _createNote(note) {
+    debugger;
     return {
         id: utilService.makeId(),
         header: note.header,

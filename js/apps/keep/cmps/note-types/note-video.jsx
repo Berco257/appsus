@@ -1,4 +1,5 @@
 import { noteService } from '../../services/note.service.js';
+import { NoteDyanmicVideo } from '../dynamic-cmps/note-dynamic-video.jsx';
 
 export class NoteVideo extends React.Component {
 
@@ -18,15 +19,7 @@ export class NoteVideo extends React.Component {
         const { note } = this.props
         return (
             <section className="note-txt">
-                <h3>{note.header}</h3>
-                <h4>{note.info.title}</h4>
-                <iframe width="250" height="187" src={note.info.url}>
-                </iframe>
-                <div className="btns-container">
-                <button onClick={this.props.onDeleteNote}>Delete</button>
-                <button onClick={() => { this.props.onEditNote(note) }}>Edit</button>
-                <button onClick={this.onPinNote}>{this.changePinSymbol()}</button>
-                </div>
+                <NoteDyanmicVideo note={note} loadNotes={this.props.loadNotes} onEditNote ={this.props.onEditNote} onDeleteNote={this.props.onDeleteNote}/>
             </section>
         )
     }

@@ -2,7 +2,7 @@ export class ImgForm extends React.Component {
     state = {
         note: {
             id: '', 
-            noteHeader: '',
+            header: '',
             comment: '',
             imgUrl: '',
             videoUrl: '',
@@ -21,8 +21,8 @@ export class ImgForm extends React.Component {
                 <form className="img-form" onSubmit={this.props.onSaveNote}>
                     <h1>{this.state.note.id ? 'Edit' : 'Add'} Note</h1>
                     <div className="input-header">
-                    <label htmlFor="noteHeader" >Header</label>
-                    <input type="text" name="noteHeader" id="noteHeader" value={this.state.note.noteHeader} onChange={this.props.handleChange} />
+                    <label htmlFor="header" >Header</label>
+                    <input type="text" name="header" id="header" value={this.state.note.header} onChange={this.props.handleChange} />
                     </div>
                     <div className="input-comment">
                     <label htmlFor="comment" >Comment</label>

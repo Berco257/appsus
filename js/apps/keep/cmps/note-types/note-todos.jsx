@@ -1,5 +1,5 @@
 import { noteService } from '../../services/note.service.js'
-import { TodoLine } from '../../cmps/todo-line.jsx'
+import { NoteDyanmicTodos } from '../../cmps/dynamic-cmps/note-dynamic-todos.jsx'
 export class NoteTodos extends React.Component {
     
     onPinNote = () => { 
@@ -18,14 +18,7 @@ export class NoteTodos extends React.Component {
         const { note } = this.props
         return (
             <section className="note-txt">
-                <h3>{note.header}</h3>
-                <h4>Label: {note.info.label}</h4>
-                {note.info.todos.map((todo, idx) => <TodoLine key={idx} todo={todo} />)}
-                <div className="btns-container">
-                <button onClick={this.props.onDeleteNote}>Delete</button>
-                <button onClick={() => { this.props.onEditNote(note) }}>Edit</button>
-                <button onClick={this.onPinNote}>{this.changePinSymbol()}</button>
-                </div>
+                <NoteDyanmicTodos note={note} loadNotes={this.props.loadNotes}onEditNote ={this.props.onEditNote} onDeleteNote={this.props.onDeleteNote}/>
             </section>
         )
     }
