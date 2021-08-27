@@ -66,7 +66,7 @@ function pinNotes() {
         array_move(gNotes, noteIdx)
     })
 
-    console.log(gNotes);
+    // console.log(gNotes);
 }
 
 function array_move(arr, old_index, new_index) {

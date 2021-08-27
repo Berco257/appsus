@@ -1,5 +1,5 @@
 import { NoteDyanmic } from '../note-dynamic.jsx'
-import { noteService } from '../services/note.service.js';
+import { noteService } from '../../services/note.service.js';
 
 export class NoteTxt extends React.Component {
 

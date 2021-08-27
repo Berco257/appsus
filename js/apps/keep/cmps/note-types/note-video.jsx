@@ -1,4 +1,4 @@
-import { noteService } from '../services/note.service.js';
+import { noteService } from '../../services/note.service.js';
 
 export class NoteVideo extends React.Component {
 
