@@ -24,7 +24,7 @@
 }
 
 .mail-compose-container .mail-compose {
-    position: absolute;
+    position: fixed;
     width: 350px;
     height: 360px;
     z-index: 5;
