@@ -35,8 +35,11 @@
     width: 100%;
     padding-block-end: 10px;
     padding-block-start: 10px;
-    line-height: 2.5rem;
     text-align: start;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre;
 }
 
 .mail-preview a:-webkit-any-link {
@@ -121,8 +124,6 @@
 
 .mail-preview>.mail-preview-wrapper>.subject {
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: pre;
     height: 100%;
     width: 100%;
 }
