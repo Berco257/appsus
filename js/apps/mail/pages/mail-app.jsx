@@ -74,7 +74,7 @@ export class MailApp extends React.Component {
         })
     }
 
-    onAddMail = ({ toEmail, subject, body }, sentAt, mailId) => {
+    onAddEditMail = ({ toEmail, subject, body }, sentAt, mailId) => {
         let fullname = toEmail.split("@")[0]
         fullname = fullname.charAt(0).toUpperCase() + fullname.substring(1, fullname.length)
         const mail = {
@@ -100,7 +100,7 @@ export class MailApp extends React.Component {
                 <h1>Mail app</h1>
                 <div className="mail-app-wrapper">
                     <div className="wrapper">
-                        <MailCompose addMail={this.onAddMail} createId={this.createId} removeMail={this.onRemoveMail} />
+                        <MailCompose addEditMail={this.onAddEditMail} createId={this.createId} removeMail={this.onRemoveMail} />
                         <MailFolderList />
                     </div>
                     <MailList mails={mailsToShow} moveMailToTrash={this.onMoveMailToTrash}

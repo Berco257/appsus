@@ -55,12 +55,11 @@ function addEditMail({ dir, to, from, sentAt, subject, body, isRead }, mailId) {
     if (mailIdx === -1) {
         mail = _createMail(mailId, dir, to, from, sentAt, subject, body, isRead)
         gMails.unshift(mail)
-        _saveMailsToStorage();
-        return Promise.resolve()
+    } else {
+        mail = { ...gMails[mailIdx], to, sentAt, subject, body }
+        gMails[mailIdx] = mail
     }
 
-    mail = { ...gMails[mailIdx], to, sentAt, subject, body }
-    gMails[mailIdx] = mail
     _saveMailsToStorage();
     return Promise.resolve()
 }

@@ -37,7 +37,7 @@ export class MailCompose extends React.Component {
     }
 
     saveMail = (mail, sentAt) => {
-        this.props.addMail(mail, sentAt, this.state.mailId)
+        this.props.addEditMail(mail, sentAt, this.state.mailId)
         if (sentAt) {
             clearInterval(this.interval)
             this.setState({ isNewMailActive: false, mail: { toEmail: '', subject: '', body: '' }, mailId: null })
