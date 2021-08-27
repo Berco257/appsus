@@ -19,7 +19,7 @@ export class MailCompose extends React.Component {
         const mailId = this.props.createId()
         this.setState({ isNewMailActive: true, mailId }, () => {
             this.interval = setInterval(() => {
-                this.saveMail(this.state.mail, 0)
+                this.addEditMail(this.state.mail, 0, false)
             }, 5000)
         })
     }
@@ -36,14 +36,13 @@ export class MailCompose extends React.Component {
         this.setState(prevState => ({ mail: { ...prevState.mail, [field]: value } }))
     }
 
-    saveMail = (mail, sentAt) => {
+    addEditMail = (mail, sentAt, isAddEditDone) => {
         this.props.addEditMail(mail, sentAt, this.state.mailId)
-        if (sentAt) {
+        if (isAddEditDone) {
             clearInterval(this.interval)
             this.setState({ isNewMailActive: false, mail: { toEmail: '', subject: '', body: '' }, mailId: null })
             return
         }
-        this.setState({ mail })
     }
 
     render() {
@@ -69,8 +68,8 @@ export class MailCompose extends React.Component {
                             </textarea>
 
                         </div>
-                        <div className="send-btn" onClick={() => this.saveMail(mail, Date.now())} >Send</div>
-                        <div className="save-exit-btn" onClick={() => this.saveMail(mail, 0)} >{`Save & exit`}</div>
+                        <div className="send-btn" onClick={() => this.addEditMail(mail, Date.now(), true)} >Send</div>
+                        <div className="save-exit-btn" onClick={() => this.addEditMail(mail, 0, true)} >{`Save & exit`}</div>
                         <div className="remove-draft-btn" onClick={this.removeDraft}><img src="./img/apps/mail/trash.png" alt="" /></div>
                     </form>
                 </div>
