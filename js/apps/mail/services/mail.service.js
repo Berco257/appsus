@@ -12,6 +12,7 @@ export const mailService = {
     toggleMailIsRead,
     toggleMailIsStarred,
     restoreMail,
+    getLoggedInUser,
 }
 
 let gMails;
@@ -30,9 +31,9 @@ function query(filterBy) {
                 case 'starred':
                     return mail.isStarred && mail.sentAt && !mail.removedAt
                 case 'inbox':
-                    return mail.to[1] === loggedinUser.email && mail.sentAt && !mail.removedAt
+                    return mail.to.email === loggedinUser.email && mail.sentAt && !mail.removedAt
                 case 'sent':
-                    return mail.from[1] === loggedinUser.email && mail.sentAt && !mail.removedAt
+                    return mail.from.email === loggedinUser.email && mail.sentAt && !mail.removedAt
                 case 'draft':
                     return !mail.sentAt && !mail.removedAt
                 case 'trash':
@@ -44,7 +45,11 @@ function query(filterBy) {
     return Promise.resolve(gMails)
 }
 
-function addMail({dir, to, from, sentAt, subject, body, isRead }) {
+function getLoggedInUser() {
+    return loggedinUser
+}
+
+function addMail({ dir, to, from, sentAt, subject, body, isRead }) {
     var mail = _createMail(dir, to, from, sentAt, subject, body, isRead)
     gMails.unshift(mail)
     _saveMailsToStorage();
@@ -54,12 +59,14 @@ function addMail({dir, to, from, sentAt, subject, body, isRead }) {
 function toggleMailIsRead(mailId) {
     var mailIdx = gMails.findIndex(mail => mailId === mail.id)
     gMails[mailIdx].isRead = !gMails[mailIdx].isRead
+    _saveMailsToStorage();
     return Promise.resolve()
 }
 
 function toggleMailIsStarred(mailId) {
     var mailIdx = gMails.findIndex(mail => mailId === mail.id)
     gMails[mailIdx].isStarred = !gMails[mailIdx].isStarred
+    _saveMailsToStorage();
     return Promise.resolve()
 }
 
@@ -70,7 +77,7 @@ function moveMailToTrash(mailId) {
     return Promise.resolve()
 }
 
-function restoreMail (mailId){
+function restoreMail(mailId) {
     var mailIdx = gMails.findIndex(mail => mailId === mail.id)
     gMails[mailIdx].removedAt = 0
     _saveMailsToStorage();
@@ -94,11 +101,11 @@ function _createMails() {
     gMails = storageService.loadFromStorage(KEY)
     if (!gMails || !gMails.length) {
         gMails = [
-            _createMail('in', ['David Berco Ben Ishai', 'user@appsus.com'], ['Appsus support', 'support@appsus.com'], 1551133930594, 'Welcome from Appsus!', 'Thank you for signup!', false),
-            _createMail('out', ['David ben ishai', 'benishai@gmail.com'], ['David Berco Ben Ishai', 'user@appsus.com'], 1551133930594, 'Keep App', 'Well done for the great work! Everything works just great! Thanks', true),
-            _createMail('out', ['Alon', 'alon@coding-academy.com'], ['David Berco Ben Ishai', 'user@appsus.com'], 0, 'Yooooo alon wu?!', 'We just wanted to catch up. How are you? Stay in Touch!', false),
-            _createMail('in', ['David Berco Ben Ishai', 'user@appsus.com'], ['Appsus support', 'support@appsus.com'], 1551133930594, 'Customer service', 'Thanks for writing to us. We will get back to you within 48 hours.', true),
-            _createMail('out', ['Berco', 'berc.david@gmail.com'], ['David Berco Ben Ishai', 'user@appsus.com'], 1551133930594, 'How are you?', 'I wanted to know if you are getting along with the new app. waiting for update.', false),
+            _createMail('in', { fullname: 'David Berco Ben Ishai', email: 'user@appsus.com' }, { fullname: 'Appsus support', email: 'support@appsus.com' }, 1551133930594, 'Welcome from Appsus!', 'Thank you for signup!', false),
+            _createMail('out', { fullname: 'David ben ishai', email: 'benishai@gmail.com' }, { fullname: 'David Berco Ben Ishai', email: 'user@appsus.com' }, 1551133930594, 'Keep App', 'Well done for the great work! Everything works just great! Thanks', true),
+            _createMail('out', { fullname: 'Alon', email: 'alon@coding-academy.com' }, { fullname: 'David Berco Ben Ishai', email: 'user@appsus.com' }, 0, 'Yooooo alon wu?!', 'We just wanted to catch up. How are you? Stay in Touch!', false),
+            _createMail('in', { fullname: 'David Berco Ben Ishai', email: 'user@appsus.com' }, { fullname: 'Appsus support', email: 'support@appsus.com' }, 1551133930594, 'Customer service', 'Thanks for writing to us. We will get back to you within 48 hours.', true),
+            _createMail('out', { fullname: 'Berco', email: 'berc.david@gmail.com' }, { fullname: 'David Berco Ben Ishai', email: 'user@appsus.com' }, 1551133930594, 'How are you?', 'I wanted to know if you are getting along with the new app. waiting for update.', false),
         ]
         _saveMailsToStorage();
     }

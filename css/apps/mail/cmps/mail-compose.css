@@ -1,4 +1,4 @@
-.new-mail-container .compose {
+.mail-compose-container .compose {
     color: #d93025;
     border-radius: 24px;
     box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
@@ -14,17 +14,17 @@
     font-size: 1rem;
 }
 
-.new-mail-container .compose::before {
+.mail-compose-container .compose::before {
     content: url(../../../../img/apps/mail/compose.png);
 }
 
-.new-mail-container .compose:hover {
+.mail-compose-container .compose:hover {
     box-shadow: 0 1px 3px 0 rgb(60 64 67 / 30%), 0 4px 8px 3px rgb(60 64 67 / 15%);
     background-color: #fafafb;
 }
 
-.new-mail-container .new-mail {
-    position: absolute;
+.mail-compose-container .mail-compose {
+    position: fixed;
     width: 350px;
     height: 360px;
     z-index: 5;
@@ -41,12 +41,12 @@
     padding: 15px;
 }
 
-.new-mail-container .compose.active~.new-mail {
+.mail-compose-container .compose.active~.mail-compose {
     opacity: 1;
     pointer-events: unset
 }
 
-.new-mail .new-mail-to input, .new-mail .new-mail-subject input {
+.mail-compose .mail-compose-to input, .mail-compose .mail-compose-subject input {
     font-size: 1.1rem;
     width: 100%;
     border: 0;
@@ -55,7 +55,7 @@
     outline: 0;
 }
 
-.new-mail .send-btn {
+.mail-compose .send-btn {
     position: absolute;
     bottom: 10px;
     padding: 10px;
@@ -68,11 +68,11 @@
     transition: 0.2s;
 }
 
-.new-mail .send-btn:hover {
+.mail-compose .send-btn:hover {
     background-color: #4381a5;
 }
 
-.new-mail .remove-draft-btn {
+.mail-compose .remove-draft-btn {
     position: absolute;
     bottom: 5px;
     inset-inline-end: 15px;
@@ -80,11 +80,15 @@
     transition: 0.2s;
 }
 
-.new-mail .remove-draft-btn:hover {
+.mail-compose .remove-draft-btn img {
+    width: 30px;
+}
+
+.mail-compose .remove-draft-btn:hover {
     opacity: 0.6;
 }
 
-.new-mail .new-mail-body textarea{
+.mail-compose .mail-compose-body textarea {
     resize: none;
     width: 100%;
     height: 215px;

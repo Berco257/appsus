@@ -5,8 +5,8 @@ export function MailPreview({ mail, moveMailToTrash, toggleMailIsRead, pathName,
 
     const getDate = () => {
         const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const year = new Date(mail.sentAt).getYear()
-        const currYear = new Date().getYear()
+        const year = new Date(mail.sentAt).getFullYear()
+        const currYear = new Date().getFullYear()
         const month = monthNames[new Date(mail.sentAt).getMonth()]
         const currMonth = monthNames[new Date().getMonth()]
         const day = new Date(mail.sentAt).getDate()
@@ -14,12 +14,13 @@ export function MailPreview({ mail, moveMailToTrash, toggleMailIsRead, pathName,
         if (year === currYear && month === currMonth && day === currDay) {
             const hours = new Date(mail.sentAt).getHours()
             const minutes = new Date(mail.sentAt).getMinutes()
-            if (hours >= 0 && hours < 12) return `hours:minutes am`
-            else return `hours:minutes pm`
+            if (hours >= 0 && hours < 12) return `${hours}:${minutes} am`
+            else return `${hours}:${minutes} pm`
         }
         const date = `${month} ${day}`
         return date
     }
+    
     const folder = pathName.split("/")[2]
     return (
         <article className={`mail-preview ${!mail.isRead ? "bold" : ""} ${folder === 'trash' ? "line-through" : ""}`}>
@@ -28,8 +29,8 @@ export function MailPreview({ mail, moveMailToTrash, toggleMailIsRead, pathName,
                 <Link to={`${pathName}/${mail.id}`} >
                     <div className="from-to">
                         {mail.dir === 'out' ?
-                            (`To: ${mail.to[0]}`) :
-                            (mail.from[0])}
+                            (`To: ${mail.to.fullname}`) :
+                            (mail.from.fullname)}
                     </div>
                 </Link>
                 <div className="subject">

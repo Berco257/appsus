@@ -22,6 +22,10 @@
     color: #f4c84b;
 }
 
+.mail-preview-wrapper>a{
+    padding-inline-end: 20px;
+}
+
 .mail-preview-wrapper>.date-wrapper>a:first-child {
     display: flex;
     align-items: center;

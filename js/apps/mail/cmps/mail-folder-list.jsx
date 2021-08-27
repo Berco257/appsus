@@ -1,8 +1,8 @@
 const { NavLink } = ReactRouterDOM
 
-export function MailSideNav() {
+export function MailFolderList() {
     return (
-        <div className="mail-side-nav">
+        <div className="mail-folder-list">
             <div className="inbox"><NavLink to="/mail/inbox" >Inbox</NavLink></div>
             <div className="starred"><NavLink to="/mail/starred" >Starred</NavLink></div>
             <div className="sent"><NavLink to="/mail/sent" >Sent</NavLink></div>

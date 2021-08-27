@@ -3,8 +3,8 @@ const { Route, Switch } = ReactRouterDOM
 import { mailService } from '../services/mail.service.js'
 import { mailUtilService } from '../services/mail.util.service.js'
 import { MailList } from '../cmps/mail-list.jsx'
-import { MailSideNav } from '../cmps/mail-side-nav.jsx'
-import { NewMail } from '../cmps/new-mail.jsx'
+import { MailFolderList } from '../cmps/mail-folder-list.jsx'
+import { MailCompose } from '../cmps/mail-compose.jsx'
 
 export class MailApp extends React.Component {
     state = {
@@ -41,33 +41,47 @@ export class MailApp extends React.Component {
         })
     }
 
-    moveMailToTrash = mailId => {
+    onMoveMailToTrash = mailId => {
         mailService.moveMailToTrash(mailId).then(() => {
             this.loadMails()
         })
     }
 
-    toggleMailIsRead = mailId => {
+    onToggleMailIsRead = mailId => {
         mailService.toggleMailIsRead(mailId).then((mail) => {
             this.loadMails()
         })
     }
 
-    toggleMailIsStarred = mailId => {
+    onToggleMailIsStarred = mailId => {
         mailService.toggleMailIsStarred(mailId).then((mail) => {
             this.loadMails()
         })
     }
 
-    removeMail = (mailId) => {
+    onRemoveMail = (mailId) => {
         mailService.removeMail(mailId).then(() => {
             // eventBusService.emit('user-msg', { txt: 'Mail deleted!', type: 'danger' })
             this.loadMails()
         })
     }
 
-    restoreMail = (mailId) => {
+    onRestoreMail = (mailId) => {
         mailService.restoreMail(mailId).then(() => {
+            // eventBusService.emit('user-msg', { txt: 'Mail deleted!', type: 'danger' })
+            this.loadMails()
+        })
+    }
+
+    onAddMail = ({ toEmail, subject, body }) => {
+        let fullname = toEmail.split("@")[0]
+        fullname = fullname.charAt(0).toUpperCase() + fullname.substring(1, fullname.length)
+        const mail = {
+            dir: 'out', to: { fullname, email: toEmail }, from: mailService.getLoggedInUser(),
+            sentAt: Date.now(), subject, body, isRead: false
+        }
+
+        mailService.addMail(mail).then(() => {
             // eventBusService.emit('user-msg', { txt: 'Mail deleted!', type: 'danger' })
             this.loadMails()
         })
@@ -81,13 +95,13 @@ export class MailApp extends React.Component {
                 <h1>Mail app</h1>
                 <div className="mail-app-wrapper">
                     <div className="wrapper">
-                        <NewMail />
-                        <MailSideNav />
+                        <MailCompose addMail={this.onAddMail} />
+                        <MailFolderList />
                     </div>
-                    <MailList mails={mailsToShow} moveMailToTrash={this.moveMailToTrash}
-                        toggleMailIsRead={this.toggleMailIsRead} pathName={pathName}
-                        removeMail={this.removeMail} restoreMail={this.restoreMail}
-                        toggleMailIsStarred={this.toggleMailIsStarred} />
+                    <MailList mails={mailsToShow} moveMailToTrash={this.onMoveMailToTrash}
+                        toggleMailIsRead={this.onToggleMailIsRead} pathName={pathName}
+                        removeMail={this.onRemoveMail} restoreMail={this.onRestoreMail}
+                        toggleMailIsStarred={this.onToggleMailIsStarred} />
                 </div>
             </section>
         )

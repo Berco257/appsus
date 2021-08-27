@@ -2,6 +2,5 @@
 @import './pages/mail-details.css';
 @import './cmps/mail-list.css';
 @import './cmps/mail-preview.css';
-@import './cmps/mail-side-nav.css';
-@import './cmps/mail-side-nav.css';
-@import './cmps/new-mail.css';
+@import './cmps/mail-folder-list.css';
+@import './cmps/mail-compose.css';

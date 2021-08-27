@@ -1,14 +1,14 @@
-.mail-side-nav {
+.mail-folder-list {
     width: 110px;
 }
 
-.mail-side-nav a:-webkit-any-link {
+.mail-folder-list a:-webkit-any-link {
     color: #202124;
     cursor: pointer;
     text-decoration: none;
 }
 
-.mail-side-nav a {
+.mail-folder-list a {
     display: block;
     padding-inline-end: 80px;
     padding-inline-start: 5px;
@@ -18,10 +18,10 @@
     border-end-end-radius: 15px;
 }
 
-.mail-side-nav a:hover {
+.mail-folder-list a:hover {
     background-color: #e8eaed;
 }
 
-.mail-side-nav a.active {
+.mail-folder-list a.active {
     background-color: #fce8e6;
 }
