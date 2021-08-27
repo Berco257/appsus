@@ -24,7 +24,6 @@ export class KeepApp extends React.Component {
     }
 
     loadNotes = () => {
-        noteService.pinNotes();
         noteService.query(this.state.filterBy).then((notes) => {
             this.setState({ notes })
         })
