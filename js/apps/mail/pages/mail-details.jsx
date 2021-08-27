@@ -2,7 +2,7 @@ const { Link } = ReactRouterDOM
 
 import { mailService } from "../services/mail.service.js"
 import { mailUtilService } from '../services/mail.util.service.js'
-import { MailSideNav } from "../cmps/mail-side-nav.jsx"
+import { MailFolderList } from "../cmps/mail-folder-list.jsx"
 
 export class MailDetails extends React.Component {
     state = {
@@ -20,7 +20,7 @@ export class MailDetails extends React.Component {
         mailService.getMailById(mailId)
             .then(mail => {
                 this.setState({ mail }, () => {
-                    if (!this.state.mail){
+                    if (!this.state.mail) {
                         this.props.history.push('/mail/inbox')
                         return
                     }
@@ -30,6 +30,22 @@ export class MailDetails extends React.Component {
                     }
                 })
             })
+    }
+
+    getDate = () => {
+        const { mail } = this.state
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const year = new Date(mail.sentAt).getFullYear()
+        const month = monthNames[new Date(mail.sentAt).getMonth()]
+        const day = new Date(mail.sentAt).getDate()
+        const date = `${month} ${day}, ${year}`
+
+        const hours = new Date(mail.sentAt).getHours()
+        const minutes = new Date(mail.sentAt).getMinutes()
+        let time = `${hours}:${minutes}`;
+        time += hours >= 0 && hours < 12 ? ` am` : ` pm`
+
+        return `${date}, ${time}`
     }
 
     render() {
@@ -43,7 +59,7 @@ export class MailDetails extends React.Component {
                 <h1>Mail app</h1>
 
                 <div className="mail-details-wrapper">
-                    <MailSideNav />
+                    <MailFolderList />
                     <div className="mail-details">
                         <div className="mail-nav-container">
                             <nav className="mail-nav">
@@ -52,10 +68,10 @@ export class MailDetails extends React.Component {
                         </div>
                         <div className="mail-details-subject">subject: {mail.subject}</div>
                         <div>
-                            <div className="mail-details-from">from: {mail.from}</div>
-                            <div className="mail-details-send-at">sent at:{mail.sentAt}</div>
+                            <div className="mail-details-from">from: {`${mail.from.fullname} <${mail.from.email}>`}</div>
+                            <div className="mail-details-send-at">sent at: {this.getDate()}</div>
                         </div>
-                        <div className="mail-details-from">to: {mail.to}</div>
+                        <div className="mail-details-from">to: {`${mail.to.fullname} <${mail.to.email}>`}</div>
                         <div className="mail-details-body">body: {mail.body}</div>
                     </div>
                 </div>
