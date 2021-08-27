@@ -72,9 +72,27 @@
     background-color: #4381a5;
 }
 
+.mail-compose .save-exit-btn {
+    position: absolute;
+    bottom: 10px;
+    padding: 10px;
+    box-shadow: 0 0 2px 0 black;
+    border-radius: 5px;
+    background: #f4f1ea;
+    color: #382110;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+    left: 140px;
+}
+
+.mail-compose .save-exit-btn:hover {
+    background-color: #eae4d6;
+}
+
 .mail-compose .remove-draft-btn {
     position: absolute;
-    bottom: 5px;
+    bottom: 8px;
     inset-inline-end: 15px;
     cursor: pointer;
     transition: 0.2s;
