@@ -80,11 +80,15 @@
     transition: 0.2s;
 }
 
+.new-mail .remove-draft-btn img {
+    width: 30px;
+}
+
 .new-mail .remove-draft-btn:hover {
     opacity: 0.6;
 }
 
-.new-mail .new-mail-body textarea{
+.new-mail .new-mail-body textarea {
     resize: none;
     width: 100%;
     height: 215px;
