@@ -5,6 +5,7 @@ import { mailUtilService } from '../services/mail.util.service.js'
 import { MailList } from '../cmps/mail-list.jsx'
 import { MailFolderList } from '../cmps/mail-folder-list.jsx'
 import { MailCompose } from '../cmps/mail-compose.jsx'
+import { utilService } from '../../../services/util.service.js'
 
 export class MailApp extends React.Component {
     state = {
@@ -73,18 +74,22 @@ export class MailApp extends React.Component {
         })
     }
 
-    onAddMail = ({ toEmail, subject, body }) => {
+    onAddMail = ({ toEmail, subject, body }, sentAt, mailId) => {
         let fullname = toEmail.split("@")[0]
         fullname = fullname.charAt(0).toUpperCase() + fullname.substring(1, fullname.length)
         const mail = {
             dir: 'out', to: { fullname, email: toEmail }, from: mailService.getLoggedInUser(),
-            sentAt: Date.now(), subject, body, isRead: false
+            sentAt, subject, body, isRead: false
         }
 
-        mailService.addMail(mail).then(() => {
+        mailService.addEditMail(mail, mailId).then(() => {
             // eventBusService.emit('user-msg', { txt: 'Mail deleted!', type: 'danger' })
             this.loadMails()
         })
+    }
+
+    createId() {
+        return utilService.makeId()
     }
 
     render() {
@@ -95,7 +100,7 @@ export class MailApp extends React.Component {
                 <h1>Mail app</h1>
                 <div className="mail-app-wrapper">
                     <div className="wrapper">
-                        <MailCompose addMail={this.onAddMail} />
+                        <MailCompose addMail={this.onAddMail} createId={this.createId} removeMail={this.onRemoveMail} />
                         <MailFolderList />
                     </div>
                     <MailList mails={mailsToShow} moveMailToTrash={this.onMoveMailToTrash}

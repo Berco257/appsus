@@ -5,14 +5,28 @@ export class MailCompose extends React.Component {
             subject: '',
             body: '',
         },
+        mailId: null,
         isNewMailActive: false
     }
 
-    showDraft = () => {
-        this.setState({ isNewMailActive: true })
+    componentWillUnmount() {
+        clearInterval(this.interval)
     }
+
+    interval;
+    showDraft = () => {
+        if (this.state.isNewMailActive) return
+        const mailId = this.props.createId()
+        this.setState({ isNewMailActive: true, mailId }, () => {
+            this.interval = setInterval(() => {
+                this.saveMail(this.state.mail, 0)
+            }, 5000)
+        })
+    }
+
     removeDraft = () => {
-        //למחוק את ה DRAFT מייל
+        clearInterval(this.interval)
+        this.props.removeMail(this.state.mailId)
         this.setState({ isNewMailActive: false, mail: { toEmail: '', subject: '', body: '' } })
     }
 
@@ -22,9 +36,14 @@ export class MailCompose extends React.Component {
         this.setState(prevState => ({ mail: { ...prevState.mail, [field]: value } }))
     }
 
-    saveMail = (mail) =>{
-        this.props.addMail(mail)
-        this.setState({ isNewMailActive: false, mail: { toEmail: '', subject: '', body: '' } })
+    saveMail = (mail, sentAt) => {
+        this.props.addMail(mail, sentAt, this.state.mailId)
+        if (sentAt) {
+            clearInterval(this.interval)
+            this.setState({ isNewMailActive: false, mail: { toEmail: '', subject: '', body: '' }, mailId: null })
+            return
+        }
+        this.setState({ mail })
     }
 
     render() {
@@ -50,7 +69,8 @@ export class MailCompose extends React.Component {
                             </textarea>
 
                         </div>
-                        <div className="send-btn" onClick={() => this.saveMail(mail)} >Send</div>
+                        <div className="send-btn" onClick={() => this.saveMail(mail, Date.now())} >Send</div>
+                        <div className="save-exit-btn" onClick={() => this.saveMail(mail, 0)} >{`Save & exit`}</div>
                         <div className="remove-draft-btn" onClick={this.removeDraft}><img src="./img/apps/mail/trash.png" alt="" /></div>
                     </form>
                 </div>
