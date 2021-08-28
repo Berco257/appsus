@@ -1,4 +1,4 @@
-import { ColorInput } from './dynamicInputs/color-input.jsx';
+import { ColorInput } from '../dynamicInputs/color-input.jsx';
 import { noteService } from '../services/note.service.js';
 
 
@@ -6,13 +6,22 @@ export class NoteDyanmicVideo extends React.Component {
 
     state = {
         inputType: 'color',
-        footerStyle: {
+        noteStyle: {
 
         }
     }
 
+    componentDidMount() {
+        if (this.props.note.style){
+            this.setState({noteStyle: this.props.note.style})
+        }
+    }
+
     onChangeStyle = (field, value) => {
-        this.setState(prevState => ({ footerStyle: { ...prevState.footerStyle, [field]: value } }))
+        this.setState(prevState => ({ noteStyle: { ...prevState.noteStyle, [field]: value } }))
+        this.props.note['style'] = {[field]: value}
+        noteService.saveNote(this.props.note)
+            .then(() => this.props.loadNotes())
     }
 
     onPinNote = () => {
@@ -29,7 +38,7 @@ export class NoteDyanmicVideo extends React.Component {
 
     render() {
         const { note } = this.props
-        const { inputType, footerStyle } = this.state
+        const { inputType, noteStyle } = this.state
         const DynamicCmp = (props) => {
             switch (props.type) {
                 case 'color':
@@ -37,7 +46,7 @@ export class NoteDyanmicVideo extends React.Component {
             }
         }
         return (
-            <section style={footerStyle} className="note-dynamic">
+            <section style={noteStyle} className="note-dynamic">
                 <h3>{note.header}</h3>
                 <h4>{note.info.title}</h4>
                 <iframe width="250" height="187" src={note.info.url}>

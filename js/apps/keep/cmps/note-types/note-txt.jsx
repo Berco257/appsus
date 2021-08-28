@@ -1,5 +1,4 @@
-import { NoteDyanmic } from '../note-dynamic.jsx'
-import { noteService } from '../../services/note.service.js';
+import { NoteDyanmicTxt } from '../dynamic-cmps/note-dynamic-txt.jsx'
 
 export class NoteTxt extends React.Component {
     
@@ -7,7 +6,7 @@ export class NoteTxt extends React.Component {
         const { note } = this.props
         return (
             <section className="note-txt">
-                <NoteDyanmic note={note} loadNotes={this.props.loadNotes} onEditNote ={this.props.onEditNote} onDeleteNote={this.props.onDeleteNote}/>
+                <NoteDyanmicTxt note={note} loadNotes={this.props.loadNotes} onEditNote ={this.props.onEditNote} onDeleteNote={this.props.onDeleteNote}/>
             </section>
         )
     }

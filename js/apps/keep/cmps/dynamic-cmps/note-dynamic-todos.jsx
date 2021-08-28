@@ -11,8 +11,17 @@ export class NoteDyanmicTodos extends React.Component {
         }
     }
 
+    componentDidMount() {
+        if (this.props.note.style){
+            this.setState({noteStyle: this.props.note.style})
+        }
+    }
+
     onChangeStyle = (field, value) => {
         this.setState(prevState => ({ noteStyle: { ...prevState.noteStyle, [field]: value } }))
+        this.props.note['style'] = {[field]: value}
+        noteService.saveNote(this.props.note)
+            .then(() => this.props.loadNotes())
     }
 
     onPinNote = () => {
