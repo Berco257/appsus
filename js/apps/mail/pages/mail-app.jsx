@@ -7,6 +7,7 @@ import { utilService } from '../../../services/util.service.js'
 import { MailList } from '../cmps/mail-list.jsx'
 import { MailFolderList } from '../cmps/mail-folder-list.jsx'
 import { MailCompose } from '../cmps/mail-compose.jsx'
+import { MailFilter } from '../cmps/mail-filter.jsx'
 
 export class MailApp extends React.Component {
     state = {
@@ -88,10 +89,13 @@ export class MailApp extends React.Component {
 
                         <MailFolderList />
                     </div>
-                    <MailList mails={mailsToShow} onMoveMailToTrash={mailUtilService.onMoveMailToTrash}
-                        toggleMailIsRead={this.onToggleMailIsRead} pathName={pathName} func={this.loadMails}
-                        onRemoveMail={mailUtilService.onRemoveMail} restoreMail={this.onRestoreMail}
-                        toggleMailIsStarred={this.onToggleMailIsStarred} setComposeMode={this.setComposeMode}/>
+                    {/* <div className="wrapper"> */}
+                        {/* <MailFilter /> */}
+                        <MailList mails={mailsToShow} onMoveMailToTrash={mailUtilService.onMoveMailToTrash}
+                            toggleMailIsRead={this.onToggleMailIsRead} pathName={pathName} func={this.loadMails}
+                            onRemoveMail={mailUtilService.onRemoveMail} restoreMail={this.onRestoreMail}
+                            toggleMailIsStarred={this.onToggleMailIsStarred} setComposeMode={this.setComposeMode} />
+                    {/* </div> */}
                 </div>
             </section>
         )
