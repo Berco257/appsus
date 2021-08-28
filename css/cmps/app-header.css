@@ -3,6 +3,10 @@ header {
     box-shadow: 0 0 2px 0 black;
 }
 
+.hamburger {
+    visibility: hidden;
+}
+
 .app-header {
     height: 50px;
     color: rgb(56, 33, 16);
@@ -52,6 +56,37 @@ header {
     justify-content: center;
 }
 
-.app-header>nav a:hover, .app-header>nav a.active {
+.app-header>nav a:hover,
+.app-header>nav a.active {
     color: whitesmoke;
     background: #382110;
+}
+
+@media screen and (max-width: 670px) {
+    .app-header {
+        width: 200px;
+        position: relative;
+        right: -100px;
+    }
+    /* .hamburger {
+        visibility: visible;
+        color: black;
+        font-size: 30px;
+        position: absolute;
+        top: -64px;
+        right: -80px;
+    } */
+    .app-header nav {
+        height: 35px;
+    }
+    .app-header h1 {
+        font-size: 0.8rem;
+        margin: 0px;
+    }
+    .app-header>nav>.link {
+        height: 100%;
+        box-shadow: 1px 0px 1px 0px #9e9e9e;
+        width: 50px;
+        font-size: 7px;
+    }
+}

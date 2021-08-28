@@ -1,3 +1,14 @@
-.app-home{
+.app-home {
     background-color: bisque;
+    height: 400px;
+}
+
+.home-imgs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-home img {
+    height: 200px;
 }

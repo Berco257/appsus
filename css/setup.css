@@ -10,15 +10,25 @@ body {
     color: #202124;
 }
 
+
 /* MAIN LAYOUT */
 
 .main-layout {
-    max-width: 1100px;
+    max-width: 250px;
     margin: auto;
     padding-inline-start: 10px;
     padding-inline-end: 10px;
+    margin-top: 50px;
 }
 
-main {
-    padding-block-end: 100px;
+@media screen and (min-width: 670px) {
+    .main-layout {
+        max-width: 1100px;
+        margin: auto;
+        padding-inline-start: 10px;
+        padding-inline-end: 10px;
+    }
+    main {
+        padding-block-end: 100px;
+    }
 }
