@@ -2,7 +2,7 @@
     width: 110px;
     position: absolute;
     inset-inline-start: 120px;
-    inset-block-start: 95px;
+    inset-block-start: 65px;
 }
 
 .mail-folder-list .list-wrapper {
@@ -39,10 +39,6 @@
     background-color: #e8eaed;
 }
 
-.mail-folder-list a.active {
-    background-color: #fce8e6;
-}
-
 .mail-folder-list .unread {
     margin-inline-start: 10px;
 }
@@ -66,6 +62,9 @@
         position: relative;
         inset-inline-start: 0;
         inset-block-start: 0;
+    }
+    .mail-folder-list a.active {
+        background-color: #fce8e6;
     }
     .mail-folder-list .list-wrapper {
         background: unset;

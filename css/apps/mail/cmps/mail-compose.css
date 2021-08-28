@@ -14,7 +14,7 @@
     font-size: 1rem;
     position: fixed;
     inset-inline-end: 10px;
-    inset-block-start: 190px;
+    inset-block-start: 60px;
 }
 
 .mail-compose-container .compose::before {
