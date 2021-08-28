@@ -1,5 +1,21 @@
 .mail-folder-list {
     width: 110px;
+    position: absolute;
+    inset-inline-start: 120px;
+    inset-block-start: 95px;
+}
+
+.mail-folder-list .list-wrapper {
+    background: #f4f1eaeb;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0px black;
+    font-size: 1.3rem;
+    height: 280px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
 }
 
 .mail-folder-list a:-webkit-any-link {
@@ -29,4 +45,47 @@
 
 .mail-folder-list .unread {
     margin-inline-start: 10px;
+}
+
+.mail-folder-list .open-menu {
+    margin-block-end: 5px;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.mail-folder-list .list-wrapper {
+    display: none;
+}
+
+.mail-folder-list .open-menu.active~.list-wrapper {
+    display: flex;
+}
+
+@media screen and (min-width: 670px) {
+    .mail-folder-list {
+        position: relative;
+        inset-inline-start: 0;
+        inset-block-start: 0;
+    }
+    .mail-folder-list .list-wrapper {
+        background: unset;
+        border-radius: 0;
+        box-shadow: unset;
+        font-size: 0.875rem;
+        height: unset;
+        width: unset;
+        display: block;
+        flex-direction: unset;
+        gap: unset;
+        padding: unset;
+    }
+    .mail-folder-list .open-menu {
+        display: none;
+    }
+    .mail-folder-list .list-wrapper {
+        display: block;
+    }
+    .mail-folder-list .open-menu.active~.list-wrapper {
+        display: block;
+    }
 }
