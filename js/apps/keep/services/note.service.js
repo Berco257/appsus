@@ -17,7 +17,7 @@ const gData = [{
         isPinned: false,
         info: {
             txt: "Fullstack Me Baby!"
-        }
+        },
     },
     {
         id: utilService.makeId(),
@@ -38,7 +38,7 @@ const gData = [{
         info: {
             label: "Get my stuff together",
             todos: [{ txt: "Driving liscence", doneAt: null }, { txt: "Coding power", doneAt: 187111111 }]
-        }
+        },
     },
     {
         id: utilService.makeId(),
@@ -49,7 +49,6 @@ const gData = [{
             url: "https://www.youtube.com/embed/watch?v=yBQ6Kck_JJc&list=RDyBQ6Kck_JJc&start_radio=1",
             title: "Gal Toren - Angel"
         },
-        style: { backgroundColor: "#00d" }
     }
 ];
 
@@ -110,6 +109,7 @@ function _updateNote(noteToEdit) {
     let updatedNote = _createNote(noteToEdit)
     updatedNote.isPinned = noteToEdit.isPinned
     updatedNote.id = noteToEdit.id
+    updatedNote.style = noteToEdit.style
     updatedNote.info = getInfo(noteToEdit)
     gNotes[noteIdx] = updatedNote
     _saveNotesToStorage();
@@ -117,13 +117,13 @@ function _updateNote(noteToEdit) {
 }
 
 function _createNote(note) {
-    debugger;
     return {
         id: utilService.makeId(),
         header: note.header,
         type: note.type,
         isPinned: false,
-        info: getInfo(note, note.type)
+        info: getInfo(note, note.type),
+        // style: note.style
     }
 }
 
