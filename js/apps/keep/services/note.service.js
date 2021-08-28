@@ -5,8 +5,6 @@ export const noteService = {
     query,
     saveNote,
     deleteNote,
-    pinNotes
-
 }
 const KEY = 'notesDB';
 var gNotes;
@@ -47,37 +45,12 @@ const gData = [{
         isPinned: false,
         info: {
             url: "https://www.youtube.com/embed/watch?v=yBQ6Kck_JJc&list=RDyBQ6Kck_JJc&start_radio=1",
-            title: "Gal Toren - Angel"
+            title: "Great Music"
         },
     }
 ];
 
 _createNotes();
-
-function pinNotes() {
-    const newNotesIdx = []
-    gNotes.forEach((note, idx) => {
-        if (note.isPinned === true) {
-            newNotesIdx.push(idx)
-        }
-    })
-    newNotesIdx.forEach(noteIdx => {
-        array_move(gNotes, noteIdx)
-    })
-
-    // console.log(gNotes);
-}
-
-function array_move(arr, old_index, new_index) {
-    if (new_index >= arr.length) {
-        var k = new_index - arr.length + 1;
-        while (k--) {
-            arr.push(undefined);
-        }
-    }
-    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-    return arr; // for testing
-};
 
 function query(filterBy) {
     if (filterBy) {
@@ -123,7 +96,6 @@ function _createNote(note) {
         type: note.type,
         isPinned: false,
         info: getInfo(note, note.type),
-        // style: note.style
     }
 }
 
@@ -148,7 +120,6 @@ function getInfo(note, type) {
         let txtAndDates = todoList.map(todo => {
             return { txt: todo, doneAt: Date.now() }
         })
-        console.log(txtAndDates);
         return {
             label: note.comment,
             todos: txtAndDates
