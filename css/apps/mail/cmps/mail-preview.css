@@ -39,7 +39,7 @@
     display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: pre;
+    white-space: nowrap;
 }
 
 .mail-preview a:-webkit-any-link {

@@ -9,6 +9,8 @@ export class MailCompose extends React.Component {
         isNewMailActive: false
     }
 
+    interval;
+
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.composedMail !== this.props.composedMail) {
             if (this.props.composedMail !== null) {
@@ -29,7 +31,6 @@ export class MailCompose extends React.Component {
         clearInterval(this.interval)
     }
 
-    interval;
     showDraft = () => {
         clearInterval(this.interval)
         const mailId = this.props.makeId()
@@ -41,9 +42,9 @@ export class MailCompose extends React.Component {
         })
     }
 
-    onRemoveMail = () => {
+    onMoveMailToTrash = () => {
         clearInterval(this.interval)
-        this.props.onRemoveMail(this.state.mailId, this.props.func)
+        this.props.onMoveMailToTrash(this.state.mailId, this.props.func)
         this.props.setComposeMode(false)
         this.setState({ mail: { toEmail: '', subject: '', body: '' } })
     }
@@ -88,7 +89,7 @@ export class MailCompose extends React.Component {
                         </div>
                         <div className="send-btn" onClick={() => this.onAddEditMail(mail, Date.now(), true)} >Send</div>
                         <div className="save-exit-btn" onClick={() => this.onAddEditMail(mail, 0, true)} >{`Save & exit`}</div>
-                        <div className="remove-draft-btn" onClick={this.onRemoveMail}><img src="./img/apps/mail/trash.png" alt="" /></div>
+                        <div className="remove-draft-btn" onClick={this.onMoveMailToTrash}><img src="./img/apps/mail/trash.png" alt="" /></div>
                     </form>
                 </div>
             </div>

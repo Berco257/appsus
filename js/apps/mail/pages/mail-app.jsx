@@ -55,12 +55,6 @@ export class MailApp extends React.Component {
         }
     }
 
-    onMoveMailToTrash = mailId => {
-        mailService.moveMailToTrash(mailId).then(() => {
-            this.loadMails()
-        })
-    }
-
     onToggleMailIsRead = mailId => {
         mailService.toggleMailIsRead(mailId).then((mail) => {
             this.loadMails()
@@ -80,8 +74,6 @@ export class MailApp extends React.Component {
         })
     }
 
-
-
     render() {
         const { mailsToShow, isComposeMode } = this.state
         const pathName = this.props.location.pathname
@@ -91,12 +83,12 @@ export class MailApp extends React.Component {
                 <div className="mail-app-wrapper">
                     <div className="wrapper">
                         <MailCompose func={this.loadMails} onAddEditMail={mailUtilService.onAddEditMail}
-                            makeId={utilService.makeId} onRemoveMail={mailUtilService.onRemoveMail}
+                            makeId={utilService.makeId} onMoveMailToTrash={mailUtilService.onMoveMailToTrash}
                             isComposeMode={isComposeMode} setComposeMode={this.setComposeMode} composedMail={this.state.composedMail} />
 
                         <MailFolderList />
                     </div>
-                    <MailList mails={mailsToShow} moveMailToTrash={this.onMoveMailToTrash}
+                    <MailList mails={mailsToShow} onMoveMailToTrash={mailUtilService.onMoveMailToTrash}
                         toggleMailIsRead={this.onToggleMailIsRead} pathName={pathName} func={this.loadMails}
                         onRemoveMail={mailUtilService.onRemoveMail} restoreMail={this.onRestoreMail}
                         toggleMailIsStarred={this.onToggleMailIsStarred} setComposeMode={this.setComposeMode}/>

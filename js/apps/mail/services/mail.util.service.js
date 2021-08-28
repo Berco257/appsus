@@ -5,6 +5,7 @@ export const mailUtilService = {
     isWrongFolder,
     onAddEditMail,
     onRemoveMail,
+    onMoveMailToTrash,
 }
 
 function isWrongFolder(pathName) {
@@ -33,6 +34,13 @@ function onAddEditMail({ toEmail, subject, body }, sentAt, mailId, func) {
 function onRemoveMail(mailId, func) {
     mailService.removeMail(mailId).then(() => {
         // eventBusService.emit('user-msg', { txt: 'Mail deleted!', type: 'danger' })
+        func()
+    })
+}
+
+
+function onMoveMailToTrash (mailId, func) {
+    mailService.moveMailToTrash(mailId).then(() => {
         func()
     })
 }
