@@ -13,6 +13,7 @@ export const mailService = {
     toggleMailIsStarred,
     restoreMail,
     getLoggedInUser,
+    getUnreadMailsCount,
 }
 
 let gMails;
@@ -26,20 +27,7 @@ _createMails();
 
 function query(filterBy) {
     if (filterBy) {
-        const mailsToShow = gMails.filter(mail => {
-            switch (filterBy) {
-                case 'starred':
-                    return mail.isStarred && mail.sentAt && !mail.removedAt
-                case 'inbox':
-                    return mail.to.email === loggedinUser.email && mail.sentAt && !mail.removedAt
-                case 'sent':
-                    return mail.from.email === loggedinUser.email && mail.sentAt && !mail.removedAt
-                case 'draft':
-                    return !mail.sentAt && !mail.removedAt
-                case 'trash':
-                    return mail.removedAt
-            }
-        })
+        const mailsToShow = getMailsByFolder(filterBy)
         return Promise.resolve(mailsToShow)
     }
     return Promise.resolve(gMails)
@@ -47,6 +35,28 @@ function query(filterBy) {
 
 function getLoggedInUser() {
     return loggedinUser
+}
+
+function getMailsByFolder(folder){
+    return gMails.filter(mail => {
+        switch (folder) {
+            case 'starred':
+                return mail.isStarred && mail.sentAt && !mail.removedAt
+            case 'inbox':
+                return mail.to.email === loggedinUser.email && mail.sentAt && !mail.removedAt
+            case 'sent':
+                return mail.from.email === loggedinUser.email && mail.sentAt && !mail.removedAt
+            case 'draft':
+                return !mail.sentAt && !mail.removedAt
+            case 'trash':
+                return mail.removedAt
+        }
+    })
+}
+
+
+function getUnreadMailsCount(folder){
+    return getMailsByFolder(folder).filter(mail => !mail.isRead).length
 }
 
 function addEditMail({ dir, to, from, sentAt, subject, body, isRead }, mailId) {

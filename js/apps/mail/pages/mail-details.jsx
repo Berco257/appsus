@@ -31,6 +31,7 @@ export class MailDetails extends React.Component {
                     if (!this.state.mail.isRead) {
                         const mailId = this.state.mail.id
                         mailService.toggleMailIsRead(mailId)
+                        this.setState({ mail })
                     }
                 })
             })
@@ -68,9 +69,9 @@ export class MailDetails extends React.Component {
 
                 <div className="mail-details-wrapper">
                     <div className="wrapper">
-                    <MailCompose func={this.loadMails} onAddEditMail={mailUtilService.onAddEditMail}
+                        <MailCompose func={this.loadMails} onAddEditMail={mailUtilService.onAddEditMail}
                             makeId={utilService.makeId} onMoveMailToTrash={mailUtilService.onMoveMailToTrash}
-                            isComposeMode={isComposeMode} setComposeMode={this.setComposeMode} composedMail={null}/>
+                            isComposeMode={isComposeMode} setComposeMode={this.setComposeMode} composedMail={null} />
 
                         <MailFolderList />
                     </div>
