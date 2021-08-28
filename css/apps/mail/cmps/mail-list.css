@@ -6,3 +6,48 @@
 .mail-list .empty {
     font-size: 1.5rem;
 }
+
+.mail-list .sort {
+    border-radius: 5px;
+    box-shadow: 0 0 2px 0 black;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    border-block-end: 1.4px solid #edeff1;
+    height: 42px;
+}
+
+.mail-list .header-from-to {
+    min-width: 170px;
+    max-width: 170px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-inline-end: 12px;
+    padding-inline-start: 37px;
+}
+
+.mail-list .header-subject {
+    display: flex;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 100%;
+    width: 100%;
+    padding-inline-start: 35px;
+    align-items: center;
+}
+
+.mail-list .header-date {
+    padding-inline-end: 10px;
+    min-width: 70px;
+    justify-content: flex-end;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.mail-list .header-subject span, .mail-list .header-date span {
+    cursor: pointer;
+    font-weight: bold;
+}

@@ -12,38 +12,67 @@ import { MailFilter } from '../cmps/mail-filter.jsx'
 export class MailApp extends React.Component {
     state = {
         mailsToShow: [],
-        filterBy: null,
+        filterBy: {
+            folder: null,
+            phrase: '',
+            isRead: 'all'
+        },
         isComposeMode: false,
         composedMail: null,
     }
 
     componentDidMount() {
-        const pathName = this.props.location.pathname.split("/")[2]
-        if (mailUtilService.isWrongFolder(pathName)) {
+        let folder = this.props.location.pathname.split("/")[2]
+        if (folder === 'search') folder = 'index'
+
+        if (mailUtilService.isWrongFolder(folder)) {
             this.props.history.push('/mail/inbox')
-            this.setState({ filterBy: 'inbox' }, () => this.loadMails())
+            this.setState(prevState => ({ filterBy: { ...prevState.filterBy, folder: 'inbox' } }))
             return
         }
-        this.setState({ filterBy: pathName }, () => this.loadMails())
-
+        this.setState(prevState => ({ filterBy: { ...prevState.filterBy, folder: folder } }), () => {
+            this.loadMails()
+        })
     }
+
     componentDidUpdate(prevProps) {
-        const pathName = this.props.location.pathname.split("/")[2]
-        if (mailUtilService.isWrongFolder(pathName)) {
+        const folder = this.props.location.pathname.split("/")[2]
+        if (mailUtilService.isWrongFolder(folder)) {
             this.props.history.push('/mail/inbox')
-            this.setState({ filterBy: 'inbox' }, () => this.loadMails())
+            this.setState(prevState => ({ filterBy: { ...prevState.filterBy, folder: 'inbox' } }), () => this.loadMails())
             return
         }
 
-        if (prevProps.location.pathname.split("/")[2] !== pathName) {
-            this.setState({ filterBy: pathName }, () => this.loadMails())
+        if (prevProps.location.pathname.split("/")[2] !== folder) {
+            this.setState(prevState => ({ filterBy: { ...prevState.filterBy, folder } }), () => this.loadMails())
+
         }
     }
 
-    loadMails = () => {
-        mailService.query(this.state.filterBy).then(mailsToShow => {
+    loadMails = (filterBy) => {
+        if (filterBy) {
+            this.props.history.push(`/mail/${filterBy.folder}`)
+            this.setState({ filterBy })
+        }
+
+        mailService.query(filterBy ? filterBy : this.state.filterBy).then(mailsToShow => {
             this.setState({ mailsToShow })
         })
+    }
+
+    sortMailsBy = (sortBy) => {
+        let mails = this.state.mailsToShow
+        if (sortBy === 'subject') {
+            mails.sort((mail1, mail2) => {
+                return mail1.subject.localeCompare(mail2.subject);
+            });
+        } else if (sortBy === 'date') {
+            mails.sort((mail1, mail2) => {
+                console.log(mail1.date, mail2.date);
+                return mail2.sentAt - mail1.sentAt;
+            });
+        }
+        this.setState({ mailsToShow: mails })
     }
 
     setComposeMode = (mode, mailId = null) => {
@@ -78,10 +107,16 @@ export class MailApp extends React.Component {
     render() {
         const { mailsToShow, isComposeMode } = this.state
         const pathName = this.props.location.pathname
+        const folder = pathName.split("/")[2]
         return (
             <section className="mail-app">
-                <h1>Mail app</h1>
+                <div className="header">
+                    <h1>Mail app</h1>
+                    <MailFilter loadMails={this.loadMails} folder={folder} />
+                </div>
                 <div className="mail-app-wrapper">
+
+
                     <div className="wrapper">
                         <MailCompose func={this.loadMails} onAddEditMail={mailUtilService.onAddEditMail}
                             makeId={utilService.makeId} onMoveMailToTrash={mailUtilService.onMoveMailToTrash}
@@ -89,13 +124,12 @@ export class MailApp extends React.Component {
 
                         <MailFolderList />
                     </div>
-                    {/* <div className="wrapper"> */}
-                        {/* <MailFilter /> */}
-                        <MailList mails={mailsToShow} onMoveMailToTrash={mailUtilService.onMoveMailToTrash}
-                            toggleMailIsRead={this.onToggleMailIsRead} pathName={pathName} func={this.loadMails}
-                            onRemoveMail={mailUtilService.onRemoveMail} restoreMail={this.onRestoreMail}
-                            toggleMailIsStarred={this.onToggleMailIsStarred} setComposeMode={this.setComposeMode} />
-                    {/* </div> */}
+
+                    <MailList mails={mailsToShow} onMoveMailToTrash={mailUtilService.onMoveMailToTrash}
+                        toggleMailIsRead={this.onToggleMailIsRead} pathName={pathName} func={this.loadMails}
+                        onRemoveMail={mailUtilService.onRemoveMail} restoreMail={this.onRestoreMail}
+                        toggleMailIsStarred={this.onToggleMailIsStarred} setComposeMode={this.setComposeMode}
+                        sortMailsBy={this.sortMailsBy} />
                 </div>
             </section>
         )

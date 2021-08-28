@@ -1,0 +1,32 @@
+.filter {
+    flex-grow: 1;
+    display: flex;
+}
+
+.filter select, .filter [name=phrase] {
+    font-size: 1.1rem;
+    border: 1px solid #ffffff;
+    height: 40px;
+    padding-inline-start: 15px;
+    box-shadow: 0 0 3px 0 black;
+    color: #382110;
+    outline: none;
+}
+
+.filter [name=phrase] {
+    border-start-start-radius: 10px;
+    border-end-start-radius: 10px;
+}
+
+.filter [name=isRead] {
+    border-start-end-radius: 10px;
+    border-end-end-radius: 10px;
+    cursor: pointer;
+    margin-inline-start: 1px;
+}
+
+.filter [name=folder] {
+    padding-inline-end: 10px;
+    cursor: pointer;
+    margin-inline-start: 1px;
+}
