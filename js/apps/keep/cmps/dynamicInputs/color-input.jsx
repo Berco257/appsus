@@ -1,15 +1,19 @@
-export function ColorInput({onChangeStyle}) {
-    const colors = ['#FFAEBC', '#A0E7E5', '#B4F8C8', '#FBE7C6']
-    
+export class ColorInput extends React.Component {
+  state = {
+    color:'',
+  }
+
+  onPickColor = ({ target })=> {
+    const value = target.value
+    this.setState({color:value})
+    this.props.onChangeStyle('backgroundColor', value)
+  }
+
+  render() {
     return (
-      <section className="dynamic-input color">
-        <section className="input-container">
-          {colors.map(color=>(
-            <article key={color} onClick={()=>onChangeStyle('backgroundColor', color)} style={{backgroundColor:color}} className="input-pick"></article>
-          ))} 
-  
-        </section>
-  
-      </section>
+      <div className="dynamic-input color" style={{backgroundColor:this.state.color}}>
+          <input type="color" onChange={this.onPickColor} value={this.state.color} />
+      </div>
     )
   }
+}

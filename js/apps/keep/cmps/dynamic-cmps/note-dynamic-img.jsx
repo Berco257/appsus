@@ -2,7 +2,7 @@ import { ColorInput } from './dynamicInputs/color-input.jsx';
 import { noteService } from '../services/note.service.js';
 
 
-export class NoteDyanmic extends React.Component {
+export class NoteDyanmicImg extends React.Component {
 
     state = {
         inputType: 'color',
@@ -39,7 +39,8 @@ export class NoteDyanmic extends React.Component {
         return (
             <section style={footerStyle} className="note-dynamic">
                 <h3>{note.header}</h3>
-                <h4>{note.info.txt}</h4>
+                <h4>{note.info.title}</h4>
+                <img src={note.info.url} alt="" />
                 <div className="btns-container">
                 <DynamicCmp onChangeStyle={this.onChangeStyle} type={inputType} />
                     <button onClick={this.props.onDeleteNote}><i className="fas fa-trash-alt"></i></button>

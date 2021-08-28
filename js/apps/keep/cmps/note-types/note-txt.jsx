@@ -7,7 +7,7 @@ export class NoteTxt extends React.Component {
         const { note } = this.props
         return (
             <section className="note-txt">
-                <NoteDyanmic note={note} loadNotes={this.props.loadNotes}/>
+                <NoteDyanmic note={note} loadNotes={this.props.loadNotes} onEditNote ={this.props.onEditNote} onDeleteNote={this.props.onDeleteNote}/>
             </section>
         )
     }

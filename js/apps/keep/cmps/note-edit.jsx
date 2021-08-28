@@ -1,15 +1,13 @@
 import { ImgForm } from '../cmps/dynamic-cmps/img-form.jsx';
 import { VideoForm } from '../cmps/dynamic-cmps/video-form.jsx';
 import { TodoForm } from '../cmps/dynamic-cmps/todo-form.jsx';
+import { TxtForm } from '../cmps/dynamic-cmps/txt-form.jsx';
 import { noteService } from '../services/note.service.js';
 export class NoteEdit extends React.Component {
     state = {
         currView: '',
         isFormShown: false,
     }
-    // componentDidMount(){
-    //     this.setState({isFormShown:this.props.isFormShown})
-    // }
 
     onSaveNote = (ev) => {
         ev.preventDefault()
@@ -30,11 +28,13 @@ export class NoteEdit extends React.Component {
         const DynamicCmp = (props) => {
             switch (currView) {
                 case 'note-img':
-                    return <ImgForm note={note} key="form-edit" handleChange={handleChange} onSaveNote={this.onSaveNote} />
+                    return <ImgForm note={note} handleChange={handleChange} onSaveNote={this.onSaveNote} />
                 case 'note-video':
                     return <VideoForm note={note} handleChange={handleChange} onSaveNote={this.onSaveNote} />
                 case 'note-todos':
                     return <TodoForm note={note} handleChange={handleChange} onSaveNote={this.onSaveNote} />
+                case 'note-txt':
+                    return <TxtForm note={note} handleChange={handleChange} onSaveNote={this.onSaveNote} />
                 default:
                     return <div className="choose-note-txt">Choose Note</div>
             }
@@ -46,6 +46,7 @@ export class NoteEdit extends React.Component {
                     <button onClick={() => { this.setState({ currView: 'note-img' }) }}><i className="far fa-image"></i></button>
                     <button onClick={() => { this.setState({ currView: 'note-video' }) }}><i className="fab fa-youtube"></i></button>
                     <button onClick={() => { this.setState({ currView: 'note-todos' }) }}><i className="far fa-check-square"></i></button>
+                    <button onClick={() => { this.setState({ currView: 'note-txt' }) }}><i className="far fa-file-alt"></i></button>
                     <DynamicCmp />
                 </div>
             </section>

@@ -1,4 +1,4 @@
-export class TodoForm extends React.Component {
+export class TxtForm extends React.Component {
     render() {
         const { id, header, comment, imgUrl, videoUrl, todoTxt, type } = this.props.note
         return (
@@ -12,11 +12,7 @@ export class TodoForm extends React.Component {
                     <label htmlFor="comment" >Comment</label>
                     <input type="text" name="comment" id="comment" value={comment} onChange={(ev) => { this.props.handleChange(ev) }} />
                 </div>
-                <label htmlFor="todoTxt" ><i className="far fa-check-square"></i></label>
-                <div className="todo-input-cont">
-                    <input name="todoTxt" id="todoTxt" type="text" placeholder="Enter comma seperated list..." value={todoTxt}
-                        onChange={(ev) => { this.props.handleChange(ev) }} />
-                </div>
+                <i className="far fa-file-alt"></i>
                 <button onSubmit={this.props.onSaveNote}>Save Note</button>
             </form>
         )
