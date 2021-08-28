@@ -9,7 +9,7 @@ export class NoteList extends React.Component {
   }
 
   render() {
-    // console.log(this.props.notes);
+    console.log(this.props.notes);
     return (
       <div className="note-list">
         <div className="note-pinned-container">
@@ -19,7 +19,7 @@ export class NoteList extends React.Component {
         </div>
         <div className="note-preview-container">
           {this.props.notes.map(note => {
-            if (!note.isPinned) return <NotePinned key={note.id} note={note} loadNotes={this.props.loadNotes} onEditNote={this.props.onEditNote} />
+            if (!note.isPinned) return <NotePreview key={note.id} note={note} loadNotes={this.props.loadNotes} onEditNote={this.props.onEditNote} />
           })}
         </div>
 
