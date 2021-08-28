@@ -81,13 +81,13 @@ export class MailDetails extends React.Component {
                                 <div className="mail-nav-back"><Link to={`/mail/${pathName}`}><img src="./img/apps/mail/arrow_back.png" /></Link></div>
                             </nav>
                         </div>
-                        <div className="mail-details-subject">subject: {mail.subject}</div>
+                        <div className="mail-details-subject">{mail.subject}</div>
                         <div>
                             <div className="mail-details-from">from: {`${mail.from.fullname} <${mail.from.email}>`}</div>
-                            <div className="mail-details-send-at">sent at: {this.getDate()}</div>
+                            <div className="mail-details-to">to: {`${mail.to.fullname} <${mail.to.email}>`}</div>
+                            <div className="mail-details-send-at">{this.getDate()}</div>
                         </div>
-                        <div className="mail-details-from">to: {`${mail.to.fullname} <${mail.to.email}>`}</div>
-                        <div className="mail-details-body">body: {mail.body}</div>
+                        <div className="mail-details-body">{mail.body}</div>
                     </div>
                 </div>
             </section>
