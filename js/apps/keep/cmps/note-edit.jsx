@@ -2,52 +2,49 @@ import { ImgForm } from '../cmps/dynamic-cmps/img-form.jsx';
 import { VideoForm } from '../cmps/dynamic-cmps/video-form.jsx';
 import { TodoForm } from '../cmps/dynamic-cmps/todo-form.jsx';
 import { TxtForm } from '../cmps/dynamic-cmps/txt-form.jsx';
-import { noteService } from '../services/note.service.js';
 export class NoteEdit extends React.Component {
-    state = {
-        currView: '',
-        isFormShown: false,
+    state ={
+        currType: '',
     }
 
-    onSaveNote = (ev) => {
-        ev.preventDefault()
-        noteService.saveNote(this.props.note)
-            .then(() => this.props.loadNotes())
-        this.props.zeroStateNote();
+    componentDidMount() {
     }
-
-    toggleForm = () => {
-        this.setState({ isFormShown: !this.state.isFormShown })
-        this.props.zeroStateNote();
+    onChooseType = (btnType)=>{
+        this.setState({ currType: btnType })
     }
 
     render() {
-        const { note } = this.props
-        const { handleChange } = this.props
-        const { currView, isFormShown } = this.state
-        const DynamicCmp = (props) => {
+        const { note, isEdit, isNewNote } = this.props
+        if (this.state.currType ===''){
+            var currView = note.type;
+        }  else {
+            var currView = this.state.currType;
+
+        }
+        if (currView === '' && (!this.props.isNewNote)) return <div></div>;
+        const DynamicCmp = () => {
+
             switch (currView) {
                 case 'note-img':
-                    return <ImgForm note={note} handleChange={handleChange} onSaveNote={this.onSaveNote} />
+                    return <ImgForm note={note} loadNotes={this.props.loadNotes} toggleEditMode={this.props.toggleEditMode} />
                 case 'note-video':
-                    return <VideoForm note={note} handleChange={handleChange} onSaveNote={this.onSaveNote} />
+                    return <VideoForm note={note} loadNotes={this.props.loadNotes} toggleEditMode={this.props.toggleEditMode} />
                 case 'note-todos':
-                    return <TodoForm note={note} handleChange={handleChange} onSaveNote={this.onSaveNote} />
+                    return <TodoForm note={note} loadNotes={this.props.loadNotes} toggleEditMode={this.props.toggleEditMode} />
                 case 'note-txt':
-                    return <TxtForm note={note} handleChange={handleChange} onSaveNote={this.onSaveNote} />
+                    return <TxtForm note={note} loadNotes={this.props.loadNotes} toggleEditMode={this.props.toggleEditMode} />
                 default:
                     return <div className="choose-note-txt">Choose Note</div>
             }
         }
         return (
-            <section className="edit-options">
-                <button className="add-note-btn" onClick={this.toggleForm}>New Note</button>
-                <div className="forms-container" hidden={!isFormShown}>
-                    <button onClick={() => { this.setState({ currView: 'note-img' }) }}><i className="far fa-image"></i></button>
-                    <button onClick={() => { this.setState({ currView: 'note-video' }) }}><i className="fab fa-youtube"></i></button>
-                    <button onClick={() => { this.setState({ currView: 'note-todos' }) }}><i className="far fa-check-square"></i></button>
-                    <button onClick={() => { this.setState({ currView: 'note-txt' }) }}><i className="far fa-file-alt"></i></button>
-                    <DynamicCmp />
+            <section className={`edit-options ${isEdit ? 'active' : ''}`}>
+                <DynamicCmp />
+                <div className={`form-btns-container ${isNewNote ? 'active' : ''}`} >
+                    <button onClick={() => { this.onChooseType('note-img') }}><i className="far fa-image"></i></button>
+                    <button onClick={() => { this.onChooseType('note-video') }}><i className="fab fa-youtube"></i></button>
+                    <button onClick={() => { this.onChooseType('note-todos') }}><i className="far fa-check-square"></i></button>
+                    <button onClick={() => { this.onChooseType('note-txt') }}><i className="far fa-file-alt"></i></button>
                 </div>
             </section>
 

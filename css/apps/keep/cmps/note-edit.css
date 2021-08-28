@@ -1,8 +1,12 @@
 .edit-options {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.edit-options.active {
+    display: flex;
 }
 
 .edit-options .add-note-btn {
@@ -24,4 +28,12 @@
 .choose-note-txt {
     font-size: 0.8rem;
     text-align: center;
+}
+
+.form-btns-container {
+    display: none;
+}
+
+.form-btns-container.active {
+    display: block;
 }

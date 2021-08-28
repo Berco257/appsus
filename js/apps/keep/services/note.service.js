@@ -65,7 +65,7 @@ function query(filterBy) {
 }
 
 function saveNote(noteToEdit) {
-    return noteToEdit.id ? _updateNote(noteToEdit) : _addNote(noteToEdit)
+    return _updateNote(noteToEdit)
 }
 
 function _addNote(noteToEdit) {
@@ -79,29 +79,41 @@ function _updateNote(noteToEdit) {
     var noteIdx = gNotes.findIndex(function(note) {
         return note.id === noteToEdit.id;
     })
-    let updatedNote = _createNote(noteToEdit)
-    updatedNote.isPinned = noteToEdit.isPinned
+    if (noteIdx === -1) _addNote(noteToEdit)
+    let updatedNote = {}
+    updatedNote.isPinned = noteToEdit.isPinned ? true : false
     updatedNote.id = noteToEdit.id
+    updatedNote.header = noteToEdit.header
     updatedNote.style = noteToEdit.style
-    updatedNote.info = getInfo(noteToEdit)
+    updatedNote.type = noteToEdit.type
+    updatedNote.info = getInfo(noteToEdit, noteToEdit.type)
     gNotes[noteIdx] = updatedNote
     _saveNotesToStorage();
     return Promise.resolve()
 }
 
 function _createNote(note) {
-    return {
-        id: utilService.makeId(),
-        header: note.header,
-        type: note.type,
-        isPinned: false,
-        info: getInfo(note, note.type),
-    }
+    console.log(note);
+    note.id = utilService.makeId()
+    note.header = note.header
+    note.type = getType(note)
+    note.isPinned = false
+    note.info = getInfo(note, note.type)
+    delete note.comment;
+    delete note.noteHeader;
+    return note;
 }
 
 
 function _saveNotesToStorage() {
     storageService.saveToStorage(KEY, gNotes)
+}
+
+function getType(note) {
+    if (note.imgUrl) return 'note-img';
+    else if (note.videoUrl) return 'note-video';
+    else if (note.todoTxt) return 'note-todos';
+    else return 'note-txt';
 }
 
 function getInfo(note, type) {
@@ -110,9 +122,14 @@ function getInfo(note, type) {
         return {
             txt: note.comment
         }
-    } else if (type === 'note-img' || type === 'note-video') {
+    } else if (type === 'note-img') {
         return {
             url: note.imgUrl,
+            title: note.comment
+        }
+    } else if (type === 'note-video') {
+        return {
+            url: note.videoUrl,
             title: note.comment
         }
     } else if (type === 'note-todos') {
