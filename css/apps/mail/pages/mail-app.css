@@ -6,13 +6,23 @@
 .mail-app-wrapper {
     display: flex;
     gap: 60px;
+    flex-direction: column;
 }
 
 .mail-app .header {
-    display: flex;
-    align-items: center;
+    display: block;
 }
 
 .mail-app .header h1 {
     min-width: 201px;
+}
+
+@media screen and (min-width: 670px) {
+    .mail-app-wrapper {
+        flex-direction: row;
+    }
+    .mail-app .header {
+        display: flex;
+        align-items: center;
+    }
 }

@@ -68,7 +68,6 @@ export class MailApp extends React.Component {
             });
         } else if (sortBy === 'date') {
             mails.sort((mail1, mail2) => {
-                console.log(mail1.date, mail2.date);
                 return mail2.sentAt - mail1.sentAt;
             });
         }

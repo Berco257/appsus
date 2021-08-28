@@ -1,6 +1,5 @@
 .filter {
-    flex-grow: 1;
-    display: flex;
+    text-align: start;
 }
 
 .filter select, .filter [name=phrase] {
@@ -14,8 +13,9 @@
 }
 
 .filter [name=phrase] {
-    border-start-start-radius: 10px;
-    border-end-start-radius: 10px;
+    border-radius: 10px;
+    width: 100%;
+    margin-block-end: 10px;
 }
 
 .filter [name=isRead] {
@@ -29,4 +29,23 @@
     padding-inline-end: 10px;
     cursor: pointer;
     margin-inline-start: 1px;
+    border-start-start-radius: 10px;
+    border-end-start-radius: 10px;
+}
+
+@media screen and (min-width: 670px) {
+    .filter {
+        flex-grow: 1;
+        display: flex;
+        text-align: center;
+    }
+    .filter [name=phrase] {
+        border-radius: 0;
+        border-start-start-radius: 10px;
+        border-end-start-radius: 10px;
+    }
+    .filter [name=folder] {
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
+    }
 }

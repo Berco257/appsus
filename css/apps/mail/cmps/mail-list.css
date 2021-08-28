@@ -1,6 +1,6 @@
 .mail-list {
     flex-grow: 1;
-    width: 0;
+    width: 100%;
 }
 
 .mail-list .empty {
@@ -50,4 +50,10 @@
 .mail-list .header-subject span, .mail-list .header-date span {
     cursor: pointer;
     font-weight: bold;
+}
+
+@media screen and (min-width: 670px) {
+    .mail-list {
+        width: 0;
+    }    
 }
