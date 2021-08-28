@@ -1,5 +1,5 @@
-import { ColorInput } from './dynamicInputs/color-input.jsx';
-import { noteService } from '../services/note.service.js';
+import { ColorInput } from '../dynamicInputs/color-input.jsx';
+import { noteService } from '../../services/note.service.js';
 
 
 export class NoteDyanmicImg extends React.Component {

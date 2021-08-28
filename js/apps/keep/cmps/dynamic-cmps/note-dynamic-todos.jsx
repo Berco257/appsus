@@ -1,5 +1,5 @@
-import { ColorInput } from './dynamicInputs/color-input.jsx';
-import { noteService } from '../services/note.service.js';
+import { ColorInput } from '../dynamicInputs/color-input.jsx';
+import { noteService } from '../../services/note.service.js';
 import { TodoLine } from '../../cmps/todo-line.jsx'
 
 export class NoteDyanmicTodos extends React.Component {
