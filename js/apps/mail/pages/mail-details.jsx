@@ -69,7 +69,7 @@ export class MailDetails extends React.Component {
 
                 <div className="mail-details-wrapper">
                     <div className="wrapper">
-                        <MailCompose func={this.loadMails} onAddEditMail={mailUtilService.onAddEditMail}
+                        <MailCompose func={this.loadMail} onAddEditMail={mailUtilService.onAddEditMail}
                             makeId={utilService.makeId} onMoveMailToTrash={mailUtilService.onMoveMailToTrash}
                             isComposeMode={isComposeMode} setComposeMode={this.setComposeMode} composedMail={null} />
 

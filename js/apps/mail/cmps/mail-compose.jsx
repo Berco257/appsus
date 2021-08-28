@@ -72,6 +72,7 @@ export class MailCompose extends React.Component {
                     Compose
                 </div>
                 <div className="mail-compose">
+                    <div className="form-header">New email</div>
                     <form className="mail-compose-form">
                         <div className="mail-compose-to">
                             <input type="text" name="toEmail" id="mail-compose-to" placeholder="To"

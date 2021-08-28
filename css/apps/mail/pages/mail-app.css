@@ -3,7 +3,12 @@
     font-size: 0.875rem;
 }
 
-.mail-app-wrapper{
+.mail-app-wrapper {
     display: flex;
     gap: 60px;
+}
+
+.mail-app .header {
+    display: flex;
+    align-items: center;
 }

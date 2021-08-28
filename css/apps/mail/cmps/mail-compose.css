@@ -25,8 +25,8 @@
 
 .mail-compose-container .mail-compose {
     position: fixed;
-    width: 350px;
-    height: 360px;
+    width: 400px;
+    height: 420px;
     z-index: 5;
     bottom: 0;
     left: 50%;
@@ -38,7 +38,6 @@
     opacity: 0;
     transition: 0.3s;
     pointer-events: none;
-    padding: 15px;
 }
 
 .mail-compose-container .compose.active~.mail-compose {
@@ -112,4 +111,18 @@
     height: 215px;
     border: 1px solid #e8e8e8;
     border-radius: 5px;
+}
+
+.mail-compose .form-header{
+    background-color: #382110;
+    padding: 15px;
+    color: whitesmoke;
+    font-size: 1.5rem;
+    border-start-start-radius: 10px;
+    border-start-end-radius: 10px;
+    box-shadow: 0 0px 3px 0 black;
+}
+
+.mail-compose form{
+    padding: 15px;
 }

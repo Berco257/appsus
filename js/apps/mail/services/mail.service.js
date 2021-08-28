@@ -26,19 +26,38 @@ const loggedinUser = {
 _createMails();
 
 function query(filterBy) {
-    if (filterBy) {
-        const mailsToShow = getMailsByFolder(filterBy)
-        return Promise.resolve(mailsToShow)
-    }
-    return Promise.resolve(gMails)
+    let mailsToShow = getMailsByFolder(gMails, filterBy.folder)
+    mailsToShow = getMailsByPhrase(mailsToShow, filterBy.phrase)
+    mailsToShow = getMailByIsRead(mailsToShow, filterBy.isRead)
+
+    return Promise.resolve(mailsToShow)
 }
 
-function getLoggedInUser() {
-    return loggedinUser
+function getMailByIsRead(mails, isRead) {
+    if (isRead === 'false') isRead = false
+    else if (isRead === 'true') isRead = true
+    return mails.filter(mail => {
+        if (isRead === 'all') return true
+        return mail.isRead === isRead
+    })
 }
 
-function getMailsByFolder(folder){
-    return gMails.filter(mail => {
+function getMailsByPhrase(mails, phrase) {
+    phrase = phrase.toLowerCase()
+    return mails.filter(mail => {
+        return (
+            mail.to.fullname.toLowerCase().includes(phrase) ||
+            mail.to.email.toLowerCase().includes(phrase) ||
+            mail.from.fullname.toLowerCase().includes(phrase) ||
+            mail.from.email.toLowerCase().includes(phrase) ||
+            mail.subject.toLowerCase().includes(phrase) ||
+            mail.body.toLowerCase().includes(phrase)
+        )
+    })
+}
+
+function getMailsByFolder(mails, folder) {
+    return mails.filter(mail => {
         switch (folder) {
             case 'starred':
                 return mail.isStarred && mail.sentAt && !mail.removedAt
@@ -50,13 +69,14 @@ function getMailsByFolder(folder){
                 return !mail.sentAt && !mail.removedAt
             case 'trash':
                 return mail.removedAt
+            case 'search':
+                return true
         }
     })
 }
 
-
-function getUnreadMailsCount(folder){
-    return getMailsByFolder(folder).filter(mail => !mail.isRead).length
+function getUnreadMailsCount(folder) {
+    return getMailsByFolder(gMails, folder).filter(mail => !mail.isRead).length
 }
 
 function addEditMail({ dir, to, from, sentAt, subject, body, isRead }, mailId) {
@@ -109,10 +129,13 @@ function removeMail(mailId) {
     return Promise.resolve()
 }
 
-
 function getMailById(mailId) {
     const mail = gMails.find(mail => mailId === mail.id)
     return Promise.resolve(mail)
+}
+
+function getLoggedInUser() {
+    return loggedinUser
 }
 
 function _createMails() {
