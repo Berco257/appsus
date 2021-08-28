@@ -30,7 +30,7 @@ export class MailApp extends React.Component {
             this.setState(prevState => ({ filterBy: { ...prevState.filterBy, folder: 'inbox' } }))
             return
         }
-        this.setState(prevState => ({ filterBy: { ...prevState.filterBy, folder: folder } }), ()=>{
+        this.setState(prevState => ({ filterBy: { ...prevState.filterBy, folder: folder } }), () => {
             this.loadMails()
         })
     }
@@ -58,6 +58,21 @@ export class MailApp extends React.Component {
         mailService.query(filterBy ? filterBy : this.state.filterBy).then(mailsToShow => {
             this.setState({ mailsToShow })
         })
+    }
+
+    sortMailsBy = (sortBy) => {
+        let mails = this.state.mailsToShow
+        if (sortBy === 'subject') {
+            mails.sort((mail1, mail2) => {
+                return mail1.subject.localeCompare(mail2.subject);
+            });
+        } else if (sortBy === 'date') {
+            mails.sort((mail1, mail2) => {
+                console.log(mail1.date, mail2.date);
+                return mail2.sentAt - mail1.sentAt;
+            });
+        }
+        this.setState({ mailsToShow: mails })
     }
 
     setComposeMode = (mode, mailId = null) => {
@@ -113,7 +128,8 @@ export class MailApp extends React.Component {
                     <MailList mails={mailsToShow} onMoveMailToTrash={mailUtilService.onMoveMailToTrash}
                         toggleMailIsRead={this.onToggleMailIsRead} pathName={pathName} func={this.loadMails}
                         onRemoveMail={mailUtilService.onRemoveMail} restoreMail={this.onRestoreMail}
-                        toggleMailIsStarred={this.onToggleMailIsStarred} setComposeMode={this.setComposeMode} />
+                        toggleMailIsStarred={this.onToggleMailIsStarred} setComposeMode={this.setComposeMode}
+                        sortMailsBy={this.sortMailsBy} />
                 </div>
             </section>
         )

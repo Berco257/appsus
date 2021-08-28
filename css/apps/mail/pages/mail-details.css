@@ -7,3 +7,10 @@
     display: flex;
     gap: 60px;
 }
+
+.mail-details-container h1 {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    margin: 0;
+}

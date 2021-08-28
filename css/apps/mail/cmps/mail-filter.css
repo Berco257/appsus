@@ -1,6 +1,6 @@
 .filter {
     flex-grow: 1;
-    padding-inline-start: 120px;
+    display: flex;
 }
 
 .filter select, .filter [name=phrase] {

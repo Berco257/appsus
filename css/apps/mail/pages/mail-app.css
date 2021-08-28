@@ -12,3 +12,7 @@
     display: flex;
     align-items: center;
 }
+
+.mail-app .header h1 {
+    min-width: 201px;
+}
