@@ -9,8 +9,26 @@
 }
 
 .mail-details-container h1 {
-    height: 60px;
-    display: flex;
-    align-items: center;
+    min-width: 201px;
     margin: 0;
+    display: flex;
+    align-items: start;
+    height: 60px;
+}
+
+.mail-details-subject, .mail-details-body {
+    font-size: 1rem;
+    margin-block-end: 20px;
+    font-weight: 500;
+}
+
+.mail-details-send-at {
+    margin-block-start: 15px;
+    margin-block-end: 15px;
+}
+
+@media screen and (min-width: 670px) {
+    .mail-details-container h1 {
+        height: 60px;
+    }
 }

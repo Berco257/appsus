@@ -22,7 +22,7 @@
     color: #f4c84b;
 }
 
-.mail-preview-wrapper>a{
+.mail-preview-wrapper>a {
     padding-inline-end: 20px;
 }
 
@@ -112,8 +112,8 @@
 
 .mail-preview>.mail-preview-wrapper>a>.from-to {
     padding-inline-start: 10px;
-    min-width: 170px;
-    max-width: 170px;
+    min-width: 120px;
+    max-width: 120px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: pre;
@@ -147,4 +147,11 @@
 
 .mail-preview>.mail-preview-wrapper:hover>.date-wrapper {
     display: none;
+}
+
+@media screen and (min-width: 670px) {
+    .mail-preview>.mail-preview-wrapper>a>.from-to {
+        min-width: 170px;
+        max-width: 170px;
+    }
 }

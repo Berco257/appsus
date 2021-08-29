@@ -9,7 +9,6 @@ export class NoteList extends React.Component {
   }
 
   render() {
-    console.log(this.props.notes);
     return (
       <div className="note-list">
         <div className="note-pinned-container">

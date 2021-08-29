@@ -36,6 +36,7 @@ export class MailCompose extends React.Component {
         const mailId = this.props.makeId()
         this.props.setComposeMode(true)
         this.setState({ mail: { toEmail: '', subject: '', body: '' }, mailId }, () => {
+            this.onAddEditMail(this.state.mail, 0, false)
             this.interval = setInterval(() => {
                 this.onAddEditMail(this.state.mail, 0, false)
             }, 5000)

@@ -14,11 +14,10 @@ body {
 /* MAIN LAYOUT */
 
 .main-layout {
-    max-width: 250px;
+    max-width: unset;
     margin: auto;
     padding-inline-start: 10px;
     padding-inline-end: 10px;
-    margin-top: 50px;
 }
 
 @media screen and (min-width: 670px) {
