@@ -34,22 +34,6 @@ export class KeepApp extends React.Component {
         this.setState({ isEdit: !this.state.isEdit })
     }
 
-    // handleChange = ({ target }) => {
-    //     const field = target.name
-    //     const value = target.value
-    //     if (field === 'imgUrl') {
-    //         this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, type: 'note-img' } }))
-    //     } else if (field === 'videoUrl') {
-    //         this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, type: 'note-video' } }))
-    //     } else if (field === 'todoTxt') {
-    //         this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, type: 'note-todos' } }))
-    //     } else if ((field === 'comment') && ((this.state.noteEdit.imgUrl === '') && (this.state.noteEdit.videoUrl === '')
-    //         && (this.state.noteEdit.todoTxt === ''))) {
-    //         this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, type: 'note-txt' } }))
-    //     }
-    //     this.setState(prevState => ({ noteEdit: { ...prevState.noteEdit, [field]: value } }))
-    // }
-
     zeroStateNote = () => {
         const emptyNote = { id: '', noteHeader: '', comment: '', imgUrl: '', videoUrl: '', type: '', todoTxt: '' }
         this.setState({ noteEdit: emptyNote })

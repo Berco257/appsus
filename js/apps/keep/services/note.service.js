@@ -16,6 +16,7 @@ const gData = [{
         info: {
             txt: "Fullstack Me Baby!"
         },
+        style: { backgroundColor: "#0f0;" },
     },
     {
         id: utilService.makeId(),
@@ -26,7 +27,6 @@ const gData = [{
             url: "https://i.picsum.photos/id/788/200/200.jpg?hmac=ECykjkngzBhLGOjhU-UYPGXXjL8Ba8VPX3S_xid4T-k",
             title: "Bobi and Me"
         },
-        style: { backgroundColor: "#00d" }
     },
     {
         id: utilService.makeId(),
@@ -35,7 +35,9 @@ const gData = [{
         isPinned: true,
         info: {
             label: "Get my stuff together",
-            todos: [{ txt: "Driving liscence", doneAt: null }, { txt: "Coding power", doneAt: 187111111 }]
+            todos: [{ txt: "Making fake data", doneAt: null }, { txt: "Coding power", doneAt: 187111111 },
+                { txt: "Not sleeping", doneAt: null }
+            ]
         },
     },
     {
@@ -45,7 +47,7 @@ const gData = [{
         isPinned: false,
         info: {
             url: "https://www.youtube.com/embed/watch?v=yBQ6Kck_JJc&list=RDyBQ6Kck_JJc&start_radio=1",
-            title: "Great Music"
+            title: "Great Music!"
         },
     }
 ];

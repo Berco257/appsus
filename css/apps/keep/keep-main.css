@@ -6,6 +6,9 @@
 @import './cmps/note-edit.css';
 .keep-app {
     background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 button:hover {
